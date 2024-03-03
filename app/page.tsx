@@ -8,9 +8,9 @@ export default function Home() {
     <>
       <main className="bg-white w-screen h-screen">
         <div className="flex w-full h-24 divide-x-4">
-          <div className="flex relative py-8 px-6 w-2/12 min-w-[16rem]">
-            <Image src={Logo} alt="logo" height={26} width={155}></Image>
-            <h1 className="absolute bottom-5 left-[4rem] heading-xl">
+          <div className="flex items-center relative px-6 w-2/12 min-w-[16rem] jus">
+            <Image src={Logo} alt="logo" width={155} height={26}></Image>
+            <h1 className="heading-xl absolute left-16 top-1/2 transform -translate-y-1/2">
               kanban
             </h1>
           </div>

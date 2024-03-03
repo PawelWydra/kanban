@@ -104,3 +104,7 @@
     letter-spacing: 0.025em;
   }
 }
+
+img{
+  height: fit-content;
+}
