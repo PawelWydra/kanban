@@ -15,7 +15,7 @@ export default function Home() {
             </h1>
           </div>
           <div className="w-10/12 flex justify-between items-center px-4">
-            <h2 className="heading-m">Platform Launch</h2>
+            <h2 className="heading-l">Platform Launch</h2>
             <div className="flex items-center gap-3">
               <button className="h-12 w-48 bg-violet-600 rounded-3xl heading-s text-white p-1">
                 + Add New Task

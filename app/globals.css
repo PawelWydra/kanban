@@ -72,6 +72,7 @@
     font-weight: bold;
     line-height: 30px;
     letter-spacing: 0.1em; /* Change to 1.6px */
+    font-kerning: 2.4;
   }
 }
 
@@ -82,6 +83,7 @@
     font-weight: bold;
     line-height: 23px;
     letter-spacing: 0.075em; /* Change to 1.2px */
+    font-kerning: 2.4;
   }
 }
 
@@ -92,6 +94,7 @@
     font-weight: bold;
     line-height: 19px;
     letter-spacing: 0.05em; /* Change to 0.8px */
+    font-kerning: 2.4;
   }
 }
 
@@ -102,9 +105,10 @@
     font-weight: bold;
     line-height: 15px;
     letter-spacing: 0.025em;
+    font-kerning: 2.4;
   }
 }
 
-img{
+img {
   height: fit-content;
 }
