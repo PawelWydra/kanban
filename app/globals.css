@@ -4,29 +4,30 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 224 71.4% 4.1%;
+    --main-purple: #635FC7;
+    --main-purple-hover: #A8A4FF;
 
-    --card: 0 0% 100%;
-    --card-foreground: 224 71.4% 4.1%;
+    --black: #000112%;
+    --very-dark-grey: #20212C;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 224 71.4% 4.1%;
+    --dark-grey: #2B2C37;
+    --lines-dark: #3E3F4E;
 
-    --primary: 220.9 39.3% 11%;
-    --primary-foreground: 210 20% 98%;
+  
+    --medium-grey: #828FA3;
+    --lines-light: #E4EBFA;
 
-    --secondary: 220 14.3% 95.9%;
-    --secondary-foreground: 220.9 39.3% 11%;
+    --light-grey: #F4F7FD
+    --white: #FFFFFF;
 
-    --muted: 220 14.3% 95.9%;
-    --muted-foreground: 220 8.9% 46.1%;
+    --muted: #F4F7FD
+    --muted-foreground: #FFFFFF;
 
     --accent: 220 14.3% 95.9%;
     --accent-foreground: 220.9 39.3% 11%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 20% 98%;
+    --destructive: #EA5555%;
+    --destructive-foreground: rgba(255, 152, 152, 0.9);
 
     --border: 220 13% 91%;
     --input: 220 13% 91%;
@@ -72,7 +73,6 @@
     font-weight: bold;
     line-height: 30px;
     letter-spacing: 0.1em; /* Change to 1.6px */
-    font-kerning: 2.4;
   }
 }
 
@@ -83,7 +83,6 @@
     font-weight: bold;
     line-height: 23px;
     letter-spacing: 0.075em; /* Change to 1.2px */
-    font-kerning: 2.4;
   }
 }
 
@@ -94,7 +93,6 @@
     font-weight: bold;
     line-height: 19px;
     letter-spacing: 0.05em; /* Change to 0.8px */
-    font-kerning: 2.4;
   }
 }
 
@@ -106,6 +104,22 @@
     line-height: 15px;
     letter-spacing: 0.025em;
     font-kerning: 2.4;
+  }
+}
+/* Small heading */
+@layer components {
+  .text-md {
+    font-size: 13px;
+    font-weight: medium;
+    line-height: 23px;
+  }
+}
+/* Small heading */
+@layer components {
+  .text-sm {
+    font-size: 12px;
+    font-weight: medium;
+    line-height: 15px;
   }
 }
 
