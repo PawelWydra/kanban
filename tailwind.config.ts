@@ -1,13 +1,13 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -32,14 +32,6 @@ const config = {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
@@ -51,6 +43,25 @@ const config = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        purple: {
+          DEFAULT: "var(--main-purple, #635FC7)", // Default purple color
+          hover: "var(--main-purple-hover, #A8A4FF)", // Hover color for purple
+        },
+        gray: {
+          'very-dark': "var(--very-dark-grey, #20212C)", // Very dark gray
+          'dark': "var(--dark-grey, #2B2C37)", // Dark gray
+          'medium': "var(--medium-grey, #828FA3)", // Medium gray
+          'light': "var(--light-grey, #F4F7FD)", // Light gray
+        },
+        black: "var(--black, #000112)",
+        linesDark: "var(--lines-dark, #3E3F4E)",
+        linesLight: "var(--lines-light, #E4EBFA)",
+
+        white: "var(--white, #FFFFFF)",
+        destructive: {
+          DEFAULT: "var(--destructive, #EA5555)", // Default destructive color
+          hover: "var(--destructive-hover, #FF9898)", // Hover state color for destructive
         },
       },
       borderRadius: {
@@ -75,6 +86,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;

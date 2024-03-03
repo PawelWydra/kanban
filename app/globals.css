@@ -17,7 +17,7 @@
     --medium-grey: #828FA3;
     --lines-light: #E4EBFA;
 
-    --light-grey: #F4F7FD
+    --light-grey: #F4F7FD;
     --white: #FFFFFF;
 
     --muted: #F4F7FD
@@ -78,7 +78,7 @@
 
 /* Large heading */
 @layer components {
-  .heading-l {
+  .heading-lg {
     font-size: 18px;
     font-weight: bold;
     line-height: 23px;
@@ -88,7 +88,7 @@
 
 /* Medium heading */
 @layer components {
-  .heading-m {
+  .heading-md {
     font-size: 15px;
     font-weight: bold;
     line-height: 19px;
@@ -98,12 +98,11 @@
 
 /* Small heading */
 @layer components {
-  .heading-s {
+  .heading-sm {
     font-size: 12px;
     font-weight: bold;
     line-height: 15px;
-    letter-spacing: 0.025em;
-    font-kerning: 2.4;
+    letter-spacing: 2.4px;
   }
 }
 /* Small heading */
