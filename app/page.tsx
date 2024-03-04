@@ -1,15 +1,26 @@
+"use client";
+
 import Image from "next/image";
 import Logo from "@/assets/logo-light.svg";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import Board from "../components/Board";
+import Sidebar from "@/components/Sidebar";
+import { useState } from "react";
 
 export default function Home() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSideBar: () => void = () => {
+    setIsSidebarOpen((prevState) => !prevState);
+  };
   return (
     <>
       <main className="bg-white w-screen h-screen">
         <div className="flex w-full h-24 divide-x-4">
-          <div className="flex items-center relative px-6 w-2/12 min-w-[16rem] jus">
-            <Image src={Logo} alt="logo" width={155} height={26}></Image>
+          <div className="flex items-center relative px-6 w-2/12 min-w-[20rem]">
+            <button onClick={toggleSideBar}>
+              <Image src={Logo} alt="logo" width={155} height={26}></Image>
+            </button>
             <h1 className="heading-xl absolute left-16 top-1/2 transform -translate-y-1/2">
               kanban
             </h1>
@@ -20,11 +31,15 @@ export default function Home() {
               <button className="h-12 w-48 bg-purple rounded-3xl heading-md text-white p-1">
                 + Add New Task
               </button>
-              <HiOutlineDotsVertical size={25} />
+              <button onClick={toggleSideBar}>
+                <HiOutlineDotsVertical size={25} />
+              </button>
             </div>
           </div>
         </div>
         <div className="h-[calc(100vh-6rem)] bg-[#E4EBFA] flex">
+          {isSidebarOpen && <Sidebar closeSidebar={toggleSideBar} />}
+
           <Board />
         </div>
       </main>

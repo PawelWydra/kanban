@@ -72,7 +72,6 @@
     font-size: 24px;
     font-weight: bold;
     line-height: 30px;
-    letter-spacing: 0.1em; /* Change to 1.6px */
   }
 }
 
@@ -82,7 +81,6 @@
     font-size: 18px;
     font-weight: bold;
     line-height: 23px;
-    letter-spacing: 0.075em; /* Change to 1.2px */
   }
 }
 
@@ -92,7 +90,6 @@
     font-size: 15px;
     font-weight: bold;
     line-height: 19px;
-    letter-spacing: 0.05em; /* Change to 0.8px */
   }
 }
 
@@ -107,7 +104,7 @@
 }
 /* Small heading */
 @layer components {
-  .text-md {
+  .text-body-md {
     font-size: 13px;
     font-weight: medium;
     line-height: 23px;
@@ -115,7 +112,7 @@
 }
 /* Small heading */
 @layer components {
-  .text-sm {
+  .text-body-sm {
     font-size: 12px;
     font-weight: medium;
     line-height: 15px;
