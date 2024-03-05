@@ -1,6 +1,7 @@
 import Image from "next/image";
 import SidebarIcon from "@/assets/icon-board.svg";
 import NightModeToggle from "./NightModeToggle";
+import useEscape from "./helpers/useEscapeFunction";
 
 type SideBarProps = {
   closeSidebar: () => void;
@@ -8,7 +9,10 @@ type SideBarProps = {
 
 
 const SideBar: React.FC<SideBarProps> = ({ closeSidebar }) => {
+    const isVisible: boolean = useEscape();
+
   return (
+    isVisible &&
     <div className="relative bg-white h-full w-2/12 min-w-[20rem] flex flex-col justify-between z-50">
       <div className="flex flex-col py-6 *:pl-6">
         <span className="heading-sm text-gray-medium mb-6">ALL BOARDS (3)</span>
