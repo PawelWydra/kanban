@@ -8,6 +8,7 @@ import Sidebar from "@/components/Sidebar";
 import OpenSidebar from "@/assets/icon-show-sidebar.svg";
 import { useState } from "react";
 import TaskPopUp from "@/components/TaskPopUp";
+import AddNewTask from "@/components/AddNewTask";
 
 export default function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -18,7 +19,7 @@ export default function Home() {
   return (
     <>
       <main className="bg-white w-screen h-screen">
-        <TaskPopUp/>
+        <AddNewTask/>
         <div className="flex w-full h-24 divide-x-4">
           <div className="flex items-center px-6 w-2/12 min-w-[20rem]">
             <button onClick={toggleSideBar}>
