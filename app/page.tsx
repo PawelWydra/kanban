@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import Logo from "@/assets/logo-light.svg";
+import Logo from "@/assets/logo-dark.svg";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import Board from "../components/Board";
 import Sidebar from "@/components/Sidebar";
 import OpenSidebar from "@/assets/icon-show-sidebar.svg";
 import { useState } from "react";
+import TaskPopUp from "@/components/TaskPopUp";
 
 export default function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -17,14 +18,12 @@ export default function Home() {
   return (
     <>
       <main className="bg-white w-screen h-screen">
+        {/* <TaskPopUp/> */}
         <div className="flex w-full h-24 divide-x-4">
           <div className="flex items-center relative px-6 w-2/12 min-w-[20rem]">
             <button onClick={toggleSideBar}>
               <Image src={Logo} alt="logo" width={155} height={26}></Image>
             </button>
-            <h1 className="heading-xl absolute left-16 top-1/2 transform -translate-y-1/2">
-              kanban
-            </h1>
           </div>
           <div className="w-10/12 flex justify-between items-center px-4">
             <h2 className="heading-xl">Platform Launch</h2>

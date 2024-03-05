@@ -2,8 +2,8 @@
 
 const TaskPopUp = () => {
   return (
-    <div className="flex justify-center items-center bg-black opacity-50">
-      <div className="flex flex-col items-center gap-4 p-4">
+    <div className="absolute h-screen w-screen bg-black opacity-60 flex justify-center items-center ">
+      <div className="bg-white flex flex-col items-center gap-4 p-4">
         <h1 className="heading-lg"></h1>
         <p className="text-body-md text-gray-medium"></p>
         <div>
