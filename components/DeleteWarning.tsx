@@ -15,10 +15,10 @@ function DeleteWarning({ title, description }: DeleteBoardProps) {
           <h1 className="heading-lg text-destructive">{title}</h1>
           <p className="text-body-md text-gray-medium">{description}</p>
           <div className="flex gap-4 *:flex-1">
-            <button className="h-10 bg-destructive text-white text-body-md rounded-3xl">
+            <button className="h-10 bg-destructive hover:bg-destructive-hover text-white text-body-md rounded-3xl">
               Delete
             </button>
-            <button className="h-10 bg-gray-light text-purple text-body-md rounded-3xl">
+            <button className="h-10 bg-gray-light hover:bg-gray-100 text-purple text-body-md rounded-3xl">
               Cancel
             </button>
           </div>
