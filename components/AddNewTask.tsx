@@ -21,7 +21,7 @@ function AddNewTask() {
           <div className="flex flex-col mt-2">
             <label className="text-body-md text-gray-medium">Title</label>
             <input
-              className="ring-2 p-2 ring-gray-light rounded"
+              className="ring-2 p-2 ring-gray-light hover:ring-purple  rounded"
               type="text"
               placeholder="e.g. Take coffee break"
             />
@@ -31,14 +31,14 @@ function AddNewTask() {
             <label className="text-body-md text-gray-medium">Description</label>
             <textarea
               rows={3}
-              className="w-full p-2 ring-2 ring-gray-light rounded resize-none"
+              className="w-full p-2 ring-2 ring-gray-light  hover:ring-purple rounded resize-none"
             />
           </div>
           <div className="flex flex-col gap-4">
             <h2 className="text-body-md text-gray-medium">Subtask</h2>
             <div className="flex items-center">
               <input
-                className="w-11/12 p-2 ring-2 ring-gray-light rounded"
+                className="w-11/12 p-2 ring-2 ring-gray-light  hover:ring-purple focus:ring-purple rounded"
                 type="text"
                 placeholder="e.g. Make coffee"
               />
@@ -46,7 +46,7 @@ function AddNewTask() {
             </div>
             <div className="flex items-center gap-2">
               <input
-                className="w-11/12 p-2 ring-2 ring-gray-light rounded"
+                className="w-11/12 p-2 ring-2 ring-gray-light  hover:ring-purple focus:ring-purple rounded"
                 type="text"
                 placeholder="e.g. Drink coffee & smile"
               />
@@ -56,7 +56,7 @@ function AddNewTask() {
                 alt="delete subtask"
               />
             </div>
-            <button className="h-10 bg-gray-light text-purple text-body-md rounded-3xl">
+            <button className="h-10 bg-gray-light hover:bg-gray-100 text-purple text-body-md rounded-3xl">
               + Add New Subtask
             </button>
           </div>
@@ -73,7 +73,7 @@ function AddNewTask() {
               </SelectContent>
             </Select>
           </div>
-          <button className="h-10 bg-purple text-white text-body-md rounded-3xl">
+          <button className="h-10 bg-purple hover:bg-purple-hover text-white text-body-md rounded-3xl">
             Create Task
           </button>
         </div>
