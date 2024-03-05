@@ -40,11 +40,11 @@ function AddNewBoard() {
               alt="delete subtask"
             />
           </div>
-          <button className="h-10 bg-gray-light text-purple text-body-md rounded-3xl">
+          <button className="h-10 bg-gray-light hover:bg-gray-100 text-purple text-body-md rounded-3xl">
             + Add New Column
           </button>
         </div>
-        <button className="h-10 bg-purple text-white text-body-md rounded-3xl">
+        <button className="h-10 bg-purple hover:bg-purple-hover text-white text-body-md rounded-3xl">
           Create New Board
         </button>
       </div>
