@@ -106,7 +106,7 @@
 @layer components {
   .text-body-md {
     font-size: 13px;
-    font-weight: medium;
+    font-weight: 500;
     line-height: 23px;
   }
 }

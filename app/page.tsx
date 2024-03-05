@@ -18,9 +18,9 @@ export default function Home() {
   return (
     <>
       <main className="bg-white w-screen h-screen">
-        {/* <TaskPopUp/> */}
+        <TaskPopUp/>
         <div className="flex w-full h-24 divide-x-4">
-          <div className="flex items-center relative px-6 w-2/12 min-w-[20rem]">
+          <div className="flex items-center px-6 w-2/12 min-w-[20rem]">
             <button onClick={toggleSideBar}>
               <Image src={Logo} alt="logo" width={155} height={26}></Image>
             </button>
