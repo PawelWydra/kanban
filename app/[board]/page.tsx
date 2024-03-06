@@ -1,10 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import SideBar from "./Sidebar";
-import { ColumnContainer } from "./ColumnContainer";
-
-
+import SideBar from "@/components/Sidebar";
+import { ColumnContainer } from "@/components/ColumnContainer";
 
 function Board() {
   const [isNewColumnOpen, setIsNewColumnOpen] = useState(false);
@@ -19,7 +17,7 @@ function Board() {
       <div className="h-[calc(100vh-6rem)] bg-[#E4EBFA] flex gap-2">
         <SideBar />
         {isNewColumnOpen ? (
-          <ColumnContainer/>
+          <ColumnContainer />
         ) : (
           <div className="w-full h-full flex flex-col gap-10 justify-center items-center">
             <h3 className="heading-lg text-gray-medium">

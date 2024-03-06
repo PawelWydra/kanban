@@ -4,17 +4,14 @@ import SidebarIcon from "@/assets/icon-board.svg";
 import NightModeToggle from "./NightModeToggle";
 import useEscape from "./helpers/useEscapeFunction";
 import OpenSidebarIcon from "@/assets/icon-show-sidebar.svg";
-
-type SideBarProps = {
-  closeSidebar: () => void;
-};
+import data from "@/data.json";
 
 const SideBar = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const toggleSideBar = () => {
     setIsSidebarOpen((prevState) => !prevState);
   };
-  const isVisible: boolean = useEscape();
+  const isVisible = useEscape();
 
   useEffect(() => {
     if (!isVisible) {
@@ -22,27 +19,39 @@ const SideBar = () => {
     }
   }, [isVisible]);
 
+  const currentPathname = decodeURIComponent(window.location.pathname); // Decode pathname
+
   return (
     <>
       {isSidebarOpen && (
         <div className="relative bg-white h-full w-2/12 min-w-[20rem] flex flex-col justify-between z-50">
-          <div className="flex flex-col py-6 *:pl-6">
-            <span className="heading-sm text-gray-medium mb-6">
-              ALL BOARDS (3)
+          <div className="flex flex-col py-6">
+            <span className="heading-sm text-gray-medium mb-6 ml-6">
+              ALL BOARDS ({data.boards.length})
             </span>
-            <div className="flex items-center gap-3 h-12 w-[17.25rem] bg-purple text-white rounded-r-3xl">
-              <Image src={SidebarIcon} alt="board icon" />
-              <p className="heading-md ">Platform Launch</p>
-            </div>
-            <div className="flex items-center gap-3 h-12 w-[17.25rem] bg-white text-white rounded-r-3xl">
-              <Image src={SidebarIcon} alt="board icon" />
-              <p className="heading-md text-gray-medium">Marketing Plan</p>
-            </div>
-            <div className="flex items-center gap-3 h-12 w-[17.25rem] bg-white text-white rounded-r-3xl">
-              <Image src={SidebarIcon} alt="board icon" />
-              <p className="heading-md text-gray-medium">Roadmap</p>
-            </div>
-            <div className="flex items-center gap-3 h-12 w-[17.25rem]">
+            {data.boards.map((board, index) => (
+              <div
+                key={index}
+                className={`flex items-center gap-3 h-12 w-[17.25rem] ${
+                  currentPathname ===
+                  `/${board.name.replace(/\s+/g, "-").toLowerCase()}` // Replace spaces with hyphens and lowercase
+                    ? "bg-purple text-white"
+                    : "bg-white text-gray-medium"
+                } rounded-r-3xl cursor-pointer`}
+                onClick={() =>
+                  (window.location.pathname = `/${board.name
+                    .replace(/\s+/g, "-")
+                    .toLowerCase()}`)
+                }
+              >
+                <Image src={SidebarIcon} alt="board icon" className="ml-6" />
+                <p className="heading-md">{board.name}</p>
+              </div>
+            ))}
+            <div
+              className="flex items-center gap-3 h-12 w-[17.25rem] ml-6 cursor-pointer"
+              onClick={() => (window.location.pathname = "/new-board")}
+            >
               <Image src={SidebarIcon} alt="board icon" />
               <p className="heading-md text-purple">+ Create New Board</p>
             </div>
