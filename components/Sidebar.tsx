@@ -5,6 +5,7 @@ import NightModeToggle from "./NightModeToggle";
 import useEscape from "./helpers/useEscapeFunction";
 import OpenSidebarIcon from "@/assets/icon-show-sidebar.svg";
 import data from "@/data.json";
+import { usePathname } from "next/navigation";
 
 const SideBar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -12,6 +13,7 @@ const SideBar = () => {
     setIsSidebarOpen((prevState) => !prevState);
   };
   const isVisible = useEscape();
+  const pathName = usePathname()
 
   useEffect(() => {
     if (!isVisible) {
@@ -19,7 +21,7 @@ const SideBar = () => {
     }
   }, [isVisible]);
 
-  const currentPathname = decodeURIComponent(window.location.pathname); // Decode pathname
+  const currentPathname = decodeURIComponent(pathName); // Decode pathname
 
   return (
     <>
