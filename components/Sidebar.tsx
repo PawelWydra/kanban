@@ -6,6 +6,7 @@ import useEscape from "./helpers/useEscapeFunction";
 import OpenSidebarIcon from "@/assets/icon-show-sidebar.svg";
 import data from "@/data.json";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 const SideBar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -13,15 +14,17 @@ const SideBar = () => {
     setIsSidebarOpen((prevState) => !prevState);
   };
   const isVisible = useEscape();
-  const pathName = usePathname()
+  const pathName = usePathname();
+
+  const formattedUrl = (url: string) => {
+    return url.replace(/\s+/g, "-");
+  };
 
   useEffect(() => {
     if (!isVisible) {
       setIsSidebarOpen(false);
     }
   }, [isVisible]);
-
-  const currentPathname = decodeURIComponent(pathName); // Decode pathname
 
   return (
     <>
@@ -32,27 +35,22 @@ const SideBar = () => {
               ALL BOARDS ({data.boards.length})
             </span>
             {data.boards.map((board, index) => (
-              <div
-                key={index}
-                className={`flex items-center gap-3 h-12 w-[17.25rem] ${
-                  currentPathname ===
-                  `/${board.name.replace(/\s+/g, "-").toLowerCase()}` // Replace spaces with hyphens and lowercase
-                    ? "bg-purple text-white"
-                    : "bg-white text-gray-medium"
-                } rounded-r-3xl cursor-pointer`}
-                onClick={() =>
-                  (window.location.pathname = `/${board.name
-                    .replace(/\s+/g, "-")
-                    .toLowerCase()}`)
-                }
-              >
-                <Image src={SidebarIcon} alt="board icon" className="ml-6" />
-                <p className="heading-md">{board.name}</p>
-              </div>
+              <Link href={formattedUrl(board.name)}>
+                <div
+                  key={index}
+                  className={`flex items-center gap-3 h-12 w-[17.25rem] ${
+                    pathName === `/${formattedUrl(board.name)}` // Replace spaces with hyphens and lowercase
+                      ? "bg-purple text-white"
+                      : "bg-white text-gray-medium"
+                  } rounded-r-3xl cursor-pointer`}
+                >
+                  <Image src={SidebarIcon} alt="board icon" className="ml-6" />
+                  <p className="heading-md">{board.name}</p>
+                </div>
+              </Link>
             ))}
             <div
               className="flex items-center gap-3 h-12 w-[17.25rem] ml-6 cursor-pointer"
-              onClick={() => (window.location.pathname = "/new-board")}
             >
               <Image src={SidebarIcon} alt="board icon" />
               <p className="heading-md text-purple">+ Create New Board</p>
