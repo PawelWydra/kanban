@@ -40,9 +40,8 @@ const SideBar = () => {
               ALL BOARDS ({data.boards.length})
             </span>
             {data.boards.map((board, index) => (
-              <Link href={formattedUrl(board.name)}>
+              <Link href={formattedUrl(board.name)} key={index}>
                 <div
-                  key={index}
                   className={`flex items-center gap-3 h-12 w-[17.25rem] ${
                     isBoardMatch(pathName, board.name) // Replace spaces with hyphens and lowercase
                       ? "bg-purple text-white"
