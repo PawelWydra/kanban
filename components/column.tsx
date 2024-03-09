@@ -1,5 +1,5 @@
 import data from "@/data.json";
-import Task from "./task";
+import Task from "./Task";
 
 const Column = ({ boardName, name }: { boardName: String; name: String }) => {
   const board = data.boards.find((board) => board.name === boardName);
