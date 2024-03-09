@@ -1,13 +1,11 @@
-"use client";
+import Sidebar from "./Sidebar";
 
-import { useState } from "react";
-import SideBar from "./Sidebar";
+function EmptyBoard() {
 
-function Board() {
   return (
     <>
       <div className="h-[calc(100vh-6rem)] bg-[#E4EBFA] flex gap-2">
-        <SideBar />
+        <Sidebar />
         <div className="w-full h-full flex flex-col gap-10 justify-center items-center">
           <h3 className="heading-lg text-gray-medium">
             This board is empty. Create a new column to get started.
@@ -21,4 +19,4 @@ function Board() {
   );
 }
 
-export default Board;
+export default EmptyBoard;

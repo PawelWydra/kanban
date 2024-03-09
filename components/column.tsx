@@ -1,4 +1,3 @@
-import React from "react";
 import data from "@/data.json";
 import Task from "./task";
 
@@ -8,7 +7,6 @@ const Column = ({ boardName, name }: { boardName: String; name: String }) => {
     (columnName) => columnName.name === name
   );
   const tasksArray = columnArray?.tasks;
-  console.log(columnArray?.tasks);
 
   return (
     <div className="w-[19rem]">
