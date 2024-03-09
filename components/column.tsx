@@ -1,4 +1,5 @@
-import React, { ReactNode } from "react";
+import React from "react";
+
 
 const Column = ({name}: {name:String}) => {
 
