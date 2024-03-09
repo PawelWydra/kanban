@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import SideBar from "./Sidebar";
-import { ColumnContainer } from "./ColumnContainer";
-
+import ColumnContainer from "./ColumnContainer";
 
 
 function Board() {

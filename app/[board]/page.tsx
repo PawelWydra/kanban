@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import SideBar from "@/components/Sidebar";
-import { ColumnContainer } from "@/components/ColumnContainer";
 import { usePathname } from "next/navigation";
 import data from "@/data.json"; // Import the data
+import Column from "@/components/Column";
 
 function Board() {
   const pathname = usePathname();
@@ -21,15 +20,15 @@ function Board() {
 
   return (
     <>
-      <div className="h-[calc(100vh-6rem)] bg-[#E4EBFA] flex gap-2">
+      <div className="h-[calc(100vh-6rem)] bg-[#E4EBFA] flex">
         <SideBar />
-        <div className="w-full h-full flex flex-col gap-10 justify-center items-center">
+        <div className="w-full h-full flex gap-10 p-6">
           {/* Check if the current board has columns */}
           {currentBoard && currentBoard.columns.length > 0 ? (
             // Render column names if the board is not empty
             <>
               {currentBoard.columns.map((column, index) => (
-                <p key={index}>{column.name}</p>
+                <Column name={column.name} key={index}></Column>
               ))}
             </>
           ) : (

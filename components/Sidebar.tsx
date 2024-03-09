@@ -20,6 +20,11 @@ const SideBar = () => {
     return url.replace(/\s+/g, "-");
   };
 
+  const isBoardMatch = (pathname: String, boardName: String) => {
+    const formattedBoardName = boardName.replace(/\s+/g, "-").toLowerCase();
+    return pathname.toLowerCase() === `/${formattedBoardName}`;
+  };
+
   useEffect(() => {
     if (!isVisible) {
       setIsSidebarOpen(false);
@@ -39,7 +44,7 @@ const SideBar = () => {
                 <div
                   key={index}
                   className={`flex items-center gap-3 h-12 w-[17.25rem] ${
-                    pathName === `/${formattedUrl(board.name)}` // Replace spaces with hyphens and lowercase
+                    isBoardMatch(pathName, board.name) // Replace spaces with hyphens and lowercase
                       ? "bg-purple text-white"
                       : "bg-white text-gray-medium"
                   } rounded-r-3xl cursor-pointer`}
@@ -49,9 +54,7 @@ const SideBar = () => {
                 </div>
               </Link>
             ))}
-            <div
-              className="flex items-center gap-3 h-12 w-[17.25rem] ml-6 cursor-pointer"
-            >
+            <div className="flex items-center gap-3 h-12 w-[17.25rem] ml-6 cursor-pointer">
               <Image src={SidebarIcon} alt="board icon" />
               <p className="heading-md text-purple">+ Create New Board</p>
             </div>
