@@ -1,6 +1,5 @@
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { useState } from "react";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -8,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Check } from "lucide-react";
+import SubtaskCheck from "@/components/subtaskCheck";
 
 type subtask = {
   title: string;
@@ -28,13 +27,10 @@ const TaskInfo = ({
 }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
   const subtaskCompleted = subtasks.filter(
     (subtask) => subtask.isCompleted === true
   );
-
-  const handleCheckboxClick = () => {
-    setIsChecked((prevState) => !prevState);
-  };
 
   const handleImageClick = () => {
     setIsDropdownVisible((prevState) => !prevState);
@@ -62,28 +58,27 @@ const TaskInfo = ({
           />
         </div>
 
-        <p className="text-body-md text-gray-medium">{description}</p>
+        <p className="text-body-md text-gray-medium">
+          {description === "" ? "add description" : description}
+        </p>
 
         <div className="w-full rounded-xl py-2">
           <p className="text-body-md text-gray-medium">
             {subtaskCompleted.length} of {subtasks.length} subtask
-          </p>{" "}
-          <div className="flex items-center gap-4 h-12 px-4 bg-gray-light hover:bg-purple-hover rounded-lg">
-            <Checkbox onCheckedChange={handleCheckboxClick} />
-            <label
-              className={`text-body-md ${
-                isChecked ? "opacity-60 line-through" : ""
-              }`}
-            >
-              Research competitor pricing and business models
-            </label>
-          </div>
+          </p>
+          {subtasks.map((subtask, index) => (
+            <SubtaskCheck
+              key={index}
+              title={subtask.title}
+              isCompleted={subtask.isCompleted}
+            />
+          ))}
         </div>
         <div className="flex flex-col gap-1 mb-20">
           <p className="text-body-md text-gray-medium">Current Status</p>
           <Select>
             <SelectTrigger className="w-full">
-              <SelectValue placeholder={status}/>
+              <SelectValue placeholder={status} />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="light">To do</SelectItem>

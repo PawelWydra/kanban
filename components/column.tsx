@@ -1,5 +1,5 @@
 import data from "@/data.json";
-import Task from "./Task";
+import Task from "@/components/Task";
 
 const Column = ({ boardName, name }: { boardName: String; name: String }) => {
   const board = data.boards.find((board) => board.name === boardName);
@@ -15,8 +15,8 @@ const Column = ({ boardName, name }: { boardName: String; name: String }) => {
         <span className="text-gray-medium heading-sm">{name}</span>
       </div>
       <div className="flex flex-col gap-4">
-        {tasksArray?.map((task) => (
-          <Task {...task}></Task>
+        {tasksArray?.map((task, index) => (
+          <Task {...task} key={index}></Task>
         ))}
       </div>
     </div>

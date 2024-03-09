@@ -31,7 +31,7 @@ const Task = ({
     <>
       <div
         onClick={handleClick}
-        className="min-h-[88px] w-full bg-white flex flex-col justify-center shadow-lg rounded-md p-4 cursor-pointer"
+        className="min-h-[88px] w-full bg-white flex flex-col justify-center shadow-lg rounded-md p-4 cursor-pointer hover:bg-slate-200"
       >
         <h2 className="heading-md text-black">{title}</h2>
         <p className="text-body-md text-gray-medium">
