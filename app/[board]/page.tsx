@@ -28,7 +28,7 @@ function Board() {
             // Render column names if the board is not empty
             <>
               {currentBoard.columns.map((column, index) => (
-                <Column name={column.name} key={index}></Column>
+                <Column boardName={currentBoard.name} name={column.name} key={index}></Column>
               ))}
             </>
           ) : (

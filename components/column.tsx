@@ -1,7 +1,14 @@
 import React from "react";
+import data from "@/data.json";
+import Task from "./task";
 
-
-const Column = ({name}: {name:String}) => {
+const Column = ({ boardName, name }: { boardName: String; name: String }) => {
+  const board = data.boards.find((board) => board.name === boardName);
+  const columnArray = board?.columns.find(
+    (columnName) => columnName.name === name
+  );
+  const tasksArray = columnArray?.tasks;
+  console.log(columnArray?.tasks);
 
   return (
     <div className="w-[19rem]">
@@ -9,7 +16,11 @@ const Column = ({name}: {name:String}) => {
         <div className="bg-[#49C4E5] rounded-full size-4"></div>
         <span className="text-gray-medium heading-sm">{name}</span>
       </div>
-      <div className="flex flex-col gap-4"></div>
+      <div className="flex flex-col gap-4">
+        {tasksArray?.map((task) => (
+          <Task {...task}></Task>
+        ))}
+      </div>
     </div>
   );
 };
