@@ -5,18 +5,15 @@ import { usePathname } from "next/navigation";
 import data from "@/data.json"; // Import the data
 import Column from "@/components/Column";
 import EmptyBoard from "@/components/EmptyBoard";
+import { useContext } from "react";
+import { HomeContext } from "@/context/HomeContext";
 
 function Board() {
-  const pathname = usePathname();
 
-  // Function to compare pathname with board name
-  const isBoardMatch = (pathname: String, boardName: String) => {
-    const formattedBoardName = boardName.replace(/\s+/g, "-").toLowerCase();
-    return pathname.toLowerCase() === `/${formattedBoardName}`;
-  };
-
-  const currentBoard = data.boards.find((board) =>
-    isBoardMatch(pathname, board.name)
+  const useHomeStateContext = () => useContext(HomeContext);
+  const { boardSelected } = useHomeStateContext();
+  const currentBoard = data.boards.find(
+    (board) => board.name === boardSelected
   );
 
   return (
