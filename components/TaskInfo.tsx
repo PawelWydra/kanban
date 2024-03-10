@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import SubtaskCheck from "@/components/subtaskCheck";
+import SubtaskCheck from "@/components/SubtaskCheck";
 
 type subtask = {
   title: string;

@@ -1,10 +1,8 @@
-"use client"
-
-import { useState, useEffect } from "react";
+"use client";
+import { useState } from "react";
 import Image from "next/image";
 import SidebarIcon from "@/assets/icon-board.svg";
 import NightModeToggle from "./NightModeToggle";
-import useEscape from "./helpers/useEscapeFunction";
 import OpenSidebarIcon from "@/assets/icon-show-sidebar.svg";
 import data from "@/data.json";
 import { usePathname } from "next/navigation";
@@ -15,7 +13,7 @@ const SideBar = () => {
   const toggleSideBar = () => {
     setIsSidebarOpen((prevState) => !prevState);
   };
-  const isVisible = useEscape();
+
   const pathName = usePathname();
 
   const formattedUrl = (url: string) => {
@@ -26,12 +24,6 @@ const SideBar = () => {
     const formattedBoardName = boardName.replace(/\s+/g, "-").toLowerCase();
     return pathname.toLowerCase() === `/${formattedBoardName}`;
   };
-
-  useEffect(() => {
-    if (!isVisible) {
-      setIsSidebarOpen(false);
-    }
-  }, [isVisible]);
 
   return (
     <>
