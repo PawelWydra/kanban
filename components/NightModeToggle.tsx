@@ -2,23 +2,24 @@ import Sun from "@/assets/icon-light-theme.svg";
 import Moon from "@/assets/icon-dark-theme.svg";
 import { Switch } from "@/components/ui/switch";
 import Image from "next/image";
+import { HomeContext } from "../context/HomeContext";
+import { useContext } from "react";
 
-type NightModeToggleProps = {
-  closeSidebar: () => void;
-};
-
-const NightModeToggle: React.FC<NightModeToggleProps> = ({ closeSidebar }) => {
+const NightModeToggle = () => {
+  const useHomeStateContext = () => useContext(HomeContext);
+  const { setShowSidebar, darkMode, setDarkMode } = useHomeStateContext();
+  console.log(darkMode)
   return (
     <div className="relative">
       <div className="p-4 flex flex-col justify-center items-center gap-6 mb-6">
         <div className="h-12 w-full mx-auto rounded-lg flex justify-center items-center gap-4 bg-gray-light">
           <Image src={Sun} alt="sun" />
-          <Switch />
+          <Switch checked={darkMode} onClick={() => setDarkMode(!darkMode)} />
           <Image src={Moon} alt="moon" />
         </div>
       </div>
       <div
-        onClick={closeSidebar}
+        onClick={() => setShowSidebar(false)}
         className="group pl-4 mb-6 h-12 w-48 flex gap-2 self-start items-center hover:bg-gray-light duration-300 rounded-r-3xl cursor-pointer"
       >
         <svg
