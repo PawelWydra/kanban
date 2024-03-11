@@ -1,8 +1,7 @@
 "use client";
 
 import SideBar from "@/components/Sidebar";
-import { usePathname } from "next/navigation";
-import data from "@/data.json"; // Import the data
+import data from "@/data.json";
 import Column from "@/components/Column";
 import EmptyBoard from "@/components/EmptyBoard";
 import { useContext } from "react";
