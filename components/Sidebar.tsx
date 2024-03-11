@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useContext } from "react";
 import Image from "next/image";
@@ -12,12 +12,8 @@ import { HomeContext } from "../context/HomeContext";
 const SideBar = () => {
   const useHomeStateContext = () => useContext(HomeContext);
 
-  const {
-    boardSelected,
-    setBoardSelected,
-    showSidebar,
-    setShowSidebar,
-  } = useHomeStateContext();
+  const { boardSelected, setBoardSelected, showSidebar, setShowSidebar } =
+    useHomeStateContext();
   return (
     <>
       {showSidebar && (
@@ -27,22 +23,18 @@ const SideBar = () => {
               ALL BOARDS ({data.boards.length})
             </span>
             {data.boards.map((board, index) => (
-              <Link
+              <div
                 onClick={() => setBoardSelected(board.name)}
-                href={board.name}
                 key={index}
+                className={`flex items-center gap-3 h-12 w-[17.25rem] ${
+                  boardSelected === board.name
+                    ? "bg-purple text-white"
+                    : "bg-white text-gray-medium"
+                } rounded-r-3xl cursor-pointer`}
               >
-                <div
-                  className={`flex items-center gap-3 h-12 w-[17.25rem] ${
-                    boardSelected === board.name
-                      ? "bg-purple text-white"
-                      : "bg-white text-gray-medium"
-                  } rounded-r-3xl cursor-pointer`}
-                >
-                  <Image src={SidebarIcon} alt="board icon" className="ml-6" />
-                  <p className="heading-md">{board.name}</p>
-                </div>
-              </Link>
+                <Image src={SidebarIcon} alt="board icon" className="ml-6" />
+                <p className="heading-md">{board.name}</p>
+              </div>
             ))}
             <div className="flex items-center gap-3 h-12 w-[17.25rem] ml-6 cursor-pointer">
               <Image src={SidebarIcon} alt="board icon" />
