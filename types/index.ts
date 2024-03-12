@@ -3,7 +3,7 @@ export type Subtask = {
   isCompleted: boolean;
 };
 
-export type Task = {
+export type ITask = {
   id: string;
   title: string;
   description: string;
@@ -12,27 +12,26 @@ export type Task = {
   subtasks?: Subtask[];
 };
 
-export type Column = {
+export type IColumn = {
   id: string;
   name: string;
-  tasks?: Task[];
+  tasks?: ITask[];
   boardId: string | null;
 };
 
-export type Board = {
+export type IBoard = {
   id: string;
   name: string;
-  columns: Column[];
-  userId?: string;
+  columns: IColumn[];
 };
 
 export type HomeContextType = {
-  boards: Board[];
-  boardSelected: string;
+  boards: IBoard[];
+  boardSelectedId: string;
   showSidebar: boolean;
   darkMode: boolean;
-  setBoards: React.Dispatch<React.SetStateAction<Board[]>>;
-  setBoardSelected: React.Dispatch<React.SetStateAction<string>>;
+  setBoards: React.Dispatch<React.SetStateAction<IBoard[]>>;
+  setBoardSelectedId: React.Dispatch<React.SetStateAction<string>>;
   setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>;
   setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
 };

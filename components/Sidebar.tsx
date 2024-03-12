@@ -12,8 +12,12 @@ import { HomeContext } from "../context/HomeContext";
 const SideBar = () => {
   const useHomeStateContext = () => useContext(HomeContext);
 
-  const { boardSelected, setBoardSelected, showSidebar, setShowSidebar } =
-    useHomeStateContext();
+  const {
+    boardSelectedId: boardSelected,
+    setBoardSelectedId: setBoardSelected,
+    showSidebar,
+    setShowSidebar,
+  } = useHomeStateContext();
   return (
     <>
       {showSidebar && (

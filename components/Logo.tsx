@@ -15,7 +15,7 @@ const Logo = () => {
         <h2 className="heading-xl">Platform Launch</h2>
         <div className="flex items-center gap-3">
           <button className="h-12 w-48 bg-purple hover:bg-purple-hover duration-300 rounded-3xl heading-md text-white p-1">
-            + Add New Task
+            + Add New Board
           </button>
           <button>
             <HiOutlineDotsVertical size={25} />

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState } from "react";
-import { Board, HomeContextType } from "@/types";
+import { IBoard, HomeContextType } from "@/types";
 
 type HomeContextProviderProps = {
   children: React.ReactNode;
@@ -10,7 +10,7 @@ type HomeContextProviderProps = {
 export const HomeContext = createContext({} as HomeContextType);
 
 export const HomeContextProvider = ({ children }: HomeContextProviderProps) => {
-  const [boards, setBoards] = useState<Board[]>([]);
+  const [boards, setBoards] = useState<IBoard[]>([]);
   const [boardSelected, setBoardSelected] = useState("");
   const [showSidebar, setShowSidebar] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
@@ -20,8 +20,8 @@ export const HomeContextProvider = ({ children }: HomeContextProviderProps) => {
       value={{
         boards,
         setBoards,
-        boardSelected,
-        setBoardSelected,
+        boardSelectedId: boardSelected,
+        setBoardSelectedId: setBoardSelected,
         showSidebar,
         setShowSidebar,
         darkMode,
@@ -32,4 +32,3 @@ export const HomeContextProvider = ({ children }: HomeContextProviderProps) => {
     </HomeContext.Provider>
   );
 };
-

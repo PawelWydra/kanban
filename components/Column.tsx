@@ -1,12 +1,7 @@
-import data from "@/data.json";
 import Task from "@/components/Task";
 
-const Column = ({ boardName, name }: { boardName: String; name: String }) => {
-  const board = data.boards.find((board) => board.name === boardName);
-  const columnArray = board?.columns.find(
-    (columnName) => columnName.name === name
-  );
-  const tasksArray = columnArray?.tasks;
+const Column = ({ name }: {name: String }) => {
+
 
   return (
     <div className="w-[19rem]">

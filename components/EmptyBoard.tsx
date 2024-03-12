@@ -1,11 +1,7 @@
-import Sidebar from "./Sidebar";
-
 function EmptyBoard() {
 
   return (
     <>
-      <div className="h-[calc(100vh-6rem)] bg-[#E4EBFA] flex gap-2">
-        <Sidebar />
         <div className="w-full h-full flex flex-col gap-10 justify-center items-center">
           <h3 className="heading-lg text-gray-medium">
             This board is empty. Create a new column to get started.
@@ -14,7 +10,6 @@ function EmptyBoard() {
             + Add New Column
           </button>
         </div>
-      </div>
     </>
   );
 }
