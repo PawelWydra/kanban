@@ -11,27 +11,28 @@ import { HomeContext } from "../context/HomeContext";
 
 const SideBar = () => {
   const useHomeStateContext = () => useContext(HomeContext);
-
   const {
-    boardSelectedId: boardSelected,
+    boardSelectedId,
     setBoardSelectedId,
     showSidebar,
     setShowSidebar,
+    boards
   } = useHomeStateContext();
+
   return (
     <>
       {showSidebar && (
         <div className="relative bg-white h-full w-2/12 min-w-[20rem] flex flex-col justify-between z-50">
           <div className="flex flex-col py-6">
             <span className="heading-sm text-gray-medium mb-6 ml-6">
-              ALL BOARDS ({data.boards.length})
+              ALL BOARDS ({boards.length})
             </span>
-            {data.boards.map((board, index) => (
+            {boards.map((board, index) => (
               <div
-                onClick={() => setBoardSelectedId(board.name)}
+                onClick={() => setBoardSelectedId(board.id)}
                 key={index}
                 className={`flex items-center gap-3 h-12 w-[17.25rem] ${
-                  boardSelected === board.name
+                  boardSelectedId === board.id
                     ? "bg-purple text-white"
                     : "bg-white text-gray-medium"
                 } rounded-r-3xl cursor-pointer`}

@@ -26,7 +26,6 @@ const Board = ({ boards }: Props) => {
     (board) => board.id === boardSelectedId
   );
 
-  console.log(completeBoardSelected);
   return (
     <>
       <SideBar />
