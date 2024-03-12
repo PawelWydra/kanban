@@ -1,8 +1,7 @@
 import Task from "@/components/Task";
+import { ITask } from "@/types/index";
 
-const Column = ({ name }: {name: String }) => {
-
-
+const Column = ({ name, tasks }: { name: String; tasks?: ITask[] }) => {
   return (
     <div className="w-[19rem]">
       <div className="flex gap-2 mb-4">
@@ -10,8 +9,8 @@ const Column = ({ name }: {name: String }) => {
         <span className="text-gray-medium heading-sm">{name}</span>
       </div>
       <div className="flex flex-col gap-4">
-        {tasksArray?.map((task, index) => (
-          <Task {...task} key={index}></Task>
+        {tasks?.map((task: ITask, index: number) => (
+          <Task {...task} key={task.id}></Task>
         ))}
       </div>
     </div>

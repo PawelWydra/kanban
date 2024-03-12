@@ -1,25 +1,11 @@
 import { useState } from "react";
 import TaskInfo from "./TaskInfo";
+import { ITask } from "@/types/index";
 
-type subtask = {
-  title: string;
-  isCompleted: boolean;
-}[];
-
-const Task = ({
-  title,
-  description,
-  status,
-  subtasks,
-}: {
-  title: String;
-  description: String;
-  status: string;
-  subtasks: subtask;
-}) => {
+const Task = ({ title, description, status, subtasks }: ITask) => {
   const [showInfo, setShowInfo] = useState(false);
 
-  const subtaskCompleted = subtasks.filter(
+  const subtaskCompleted = subtasks?.filter(
     (subtask) => subtask.isCompleted === true
   );
 
@@ -35,7 +21,7 @@ const Task = ({
       >
         <h2 className="heading-md text-black">{title}</h2>
         <p className="text-body-md text-gray-medium">
-          {subtaskCompleted.length} of {subtasks.length} subtask
+          {subtaskCompleted?.length} of {subtasks?.length} subtask
         </p>
       </div>
       {showInfo && (

@@ -14,7 +14,7 @@ const SideBar = () => {
 
   const {
     boardSelectedId: boardSelected,
-    setBoardSelectedId: setBoardSelected,
+    setBoardSelectedId,
     showSidebar,
     setShowSidebar,
   } = useHomeStateContext();
@@ -28,7 +28,7 @@ const SideBar = () => {
             </span>
             {data.boards.map((board, index) => (
               <div
-                onClick={() => setBoardSelected(board.name)}
+                onClick={() => setBoardSelectedId(board.name)}
                 key={index}
                 className={`flex items-center gap-3 h-12 w-[17.25rem] ${
                   boardSelected === board.name

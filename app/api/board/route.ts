@@ -28,7 +28,6 @@ export const getBoards = async () => {
       },
     },
   });
-  console.log(boards);
   return boards;
 };
 

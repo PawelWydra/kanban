@@ -8,11 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import SubtaskCheck from "@/components/SubtaskCheck";
-
-type subtask = {
-  title: string;
-  isCompleted: boolean;
-}[];
+import { Subtask } from "@prisma/client";
 
 const TaskInfo = ({
   title,
@@ -23,15 +19,14 @@ const TaskInfo = ({
   title: String;
   description: String;
   status: string;
-  subtasks: subtask;
+  subtasks?: Subtask[];
 }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
-  const subtaskCompleted = subtasks.filter(
-    (subtask) => subtask.isCompleted === true
+  const subtaskCompleted = subtasks?.filter(
+    (subtask: Subtask) => subtask.isCompleted === true
   );
-
   const handleImageClick = () => {
     setIsDropdownVisible((prevState) => !prevState);
   };
@@ -64,9 +59,9 @@ const TaskInfo = ({
 
         <div className="w-full rounded-xl py-2">
           <p className="text-body-md text-gray-medium">
-            {subtaskCompleted.length} of {subtasks.length} subtask
+            {subtaskCompleted?.length} of {subtasks?.length} subtask
           </p>
-          {subtasks.map((subtask, index) => (
+          {subtasks?.map((subtask, index) => (
             <SubtaskCheck
               key={index}
               title={subtask.title}
