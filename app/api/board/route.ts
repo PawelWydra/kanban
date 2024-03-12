@@ -1,43 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
 import { editColumnViaBoard } from "../column/route";
-import data from "@/data.json";
-
-export async function insertDataFromJSON() {
-  try {
-    // Loop through each board in the data
-    for (const boardData of data.boards) {
-      // Create a new board in the database
-      const newBoard = await prisma.board.create({
-        data: {
-          name: boardData.name,
-          columns: {
-            create: boardData.columns.map((column) => ({
-              name: column.name,
-              tasks: {
-                create: column.tasks.map((task) => ({
-                  title: task.title,
-                  description: task.description,
-                  status: task.status,
-                  subtask: [],
-                })),
-              },
-            })),
-          },
-        },
-      });
-
-      console.log("New board created:", newBoard);
-    }
-
-    console.log("Data inserted successfully.");
-  } catch (error) {
-    console.error("Error inserting data:", error);
-  } finally {
-    // Close Prisma client
-    await prisma.$disconnect();
-  }
-}
 
 export const getBoardById = async (id: string) => {
   const board = await prisma.board.findMany({

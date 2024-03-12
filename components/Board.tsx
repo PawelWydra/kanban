@@ -14,24 +14,19 @@ type Props = {
   boards: IBoard[];
 };
 
-
-
 const Board = ({ boards }: Props) => {
   const useHomeStateContext = () => useContext(HomeContext);
   const { setBoards, setBoardSelectedId, boardSelectedId } =
     useHomeStateContext();
 
-  console.log(boards);
+  useEffect(() => {
+    if (boards[0]) {
+      setBoards(boards);
+      setBoardSelectedId(boards[0].id);
+    }
+  }, [boards]);
 
-  let completeBoardSelected = {
-    name: "complete",
-    id: boardSelectedId,
-    columns: {
-      name: "name",
-      id: "323",
-    },
-  };
-
+  let completeBoardSelected = boards.filter(board => board.id === boardSelectedId);
   return (
     <>
       <SideBar />
