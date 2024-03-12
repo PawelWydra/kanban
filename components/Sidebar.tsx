@@ -5,8 +5,6 @@ import Image from "next/image";
 import SidebarIcon from "@/assets/icon-board.svg";
 import NightModeToggle from "./NightModeToggle";
 import OpenSidebarIcon from "@/assets/icon-show-sidebar.svg";
-import data from "@/data.json";
-import Link from "next/link";
 import { HomeContext } from "../context/HomeContext";
 
 const SideBar = () => {

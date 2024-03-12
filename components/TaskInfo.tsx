@@ -8,22 +8,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import SubtaskCheck from "@/components/SubtaskCheck";
-import { Subtask } from "@prisma/client";
+import { Subtask, Task } from "@prisma/client";
 
-const TaskInfo = ({
-  title,
-  description,
-  status,
-  subtasks,
-}: {
-  title: String;
-  description: String;
-  status: string;
-  subtasks?: Subtask[];
-}) => {
-  const [isChecked, setIsChecked] = useState(false);
+const TaskInfo = ({ title, description, status, subtasks }: Task) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const [isCompleted, setIsCompleted] = useState(false);
   const subtaskCompleted = subtasks?.filter(
     (subtask: Subtask) => subtask.isCompleted === true
   );
