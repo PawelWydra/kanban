@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import { HomeContext } from "@/context/HomeContext";
 import { IBoard } from "@/types/index";
-import SideBar from "@/components/Sidebar";
 import EmptyBoard from "@/components/EmptyBoard";
 
 type Props = {
@@ -28,7 +27,7 @@ const Board = ({ boards }: Props) => {
 
   return (
     <>
-      <SideBar />
+  
       {completeBoardSelected && completeBoardSelected.columns.length > 0 ? (
         <div className="w-full h-full flex gap-10 p-6">
           {completeBoardSelected.columns.map((column, index) => (

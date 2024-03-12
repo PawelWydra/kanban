@@ -1,5 +1,7 @@
 import Board from "@/components/Board";
 import { getBoards } from "@/app/api/board/route";
+import SideBar from "@/components/Sidebar";
+import Logo from "@/components/Logo";
 
 
 const getBoardsData = async () => {
@@ -12,8 +14,10 @@ export default async function Home() {
   return (
     <>
       <main className="bg-white w-screen h-screen">
+      <Logo />
         <div className="h-[calc(100vh-6rem)] bg-[#E4EBFA] flex">
-          <Board  boards={...boards}/>
+          <SideBar />
+          <Board boards={...boards} />
         </div>
       </main>
     </>
