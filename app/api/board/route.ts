@@ -18,19 +18,6 @@ export const getBoardById = async (id: string) => {
   return board;
 };
 
-export const getBoards = async () => {
-  const boards = await prisma.board.findMany({
-    include: {
-      columns: {
-        include: {
-          tasks: true,
-        },
-      },
-    },
-  });
-  return boards;
-};
-
 export const createBoard = async (reqBody: any) => {
   const newBoard = await prisma.board.create({
     data: {
