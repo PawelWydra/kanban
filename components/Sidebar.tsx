@@ -20,7 +20,7 @@ const SideBar = () => {
   return (
     <>
       {showSidebar && (
-        <div className="relative bg-white h-full w-2/12 min-w-[20rem] flex flex-col justify-between z-50">
+        <div className="relative bg-white h-full w-2/12 min-w-[20rem] flex flex-col justify-between z-10">
           <div className="flex flex-col py-6">
             <span className="heading-sm text-gray-medium mb-6 ml-6">
               ALL BOARDS ({boards.length})

@@ -35,3 +35,18 @@ export type HomeContextType = {
   setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>;
   setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
+export type ModalContextType = {
+  addNewBoard: boolean;
+  addNewTask: boolean;
+  deleteWarning: boolean;
+  editBoard: boolean;
+  editTask: boolean;
+  taskInfo: boolean;
+  setAddNewBoard: React.Dispatch<React.SetStateAction<boolean>>;
+  setAddNewTask: React.Dispatch<React.SetStateAction<boolean>>;
+  setDeleteWarning: React.Dispatch<React.SetStateAction<boolean>>;
+  setEditBoard: React.Dispatch<React.SetStateAction<boolean>>;
+  setEditTask: React.Dispatch<React.SetStateAction<boolean>>;
+  setTaskInfo: React.Dispatch<React.SetStateAction<boolean>>;
+};
