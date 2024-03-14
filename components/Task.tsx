@@ -1,5 +1,5 @@
 import { useState } from "react";
-import TaskInfo from "./TaskInfo";
+import TaskInfo from "./modals/TaskInfo";
 import { ITask } from "@/types/index";
 
 const Task = ({ title, description, status, subtasks }: ITask) => {

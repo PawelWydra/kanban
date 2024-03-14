@@ -1,4 +1,4 @@
-import useEscape from "./helpers/useEscapeFunction";
+import useEscape from "../helpers/useEscapeFunction";
 
 type DeleteBoardProps = {
   title: string;

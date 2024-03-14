@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Cross from "@/assets/icon-cross.svg";
-import useEscape from "./helpers/useEscapeFunction";
+import useEscape from "../helpers/useEscapeFunction";
 import {
   Select,
   SelectContent,

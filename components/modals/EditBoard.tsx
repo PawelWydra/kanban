@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Cross from "@/assets/icon-cross.svg";
-import useEscape from "./helpers/useEscapeFunction";
+import useEscape from "../helpers/useEscapeFunction";
 
 function EditBoard() {
   const isVisible: boolean = useEscape();

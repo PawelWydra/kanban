@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import Image from "next/image";
 import Cross from "@/assets/icon-cross.svg";
 import {
@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import useEscape from "./helpers/useEscapeFunction";
+import useEscape from "../helpers/useEscapeFunction";
 
 function AddNewTask() {
   const isVisible: boolean = useEscape();

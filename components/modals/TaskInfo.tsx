@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import SubtaskCheck from "@/components/SubtaskCheck";
+import SubtaskCheck from "@/components/modals/SubtaskCheck";
 import { Subtask, Task } from "@prisma/client";
 
 const TaskInfo = ({ title, description, status, subtasks }: Task) => {
@@ -18,7 +18,7 @@ const TaskInfo = ({ title, description, status, subtasks }: Task) => {
   const handleImageClick = () => {
     setIsDropdownVisible((prevState) => !prevState);
   };
-
+ 
   return (
     <div className="absolute top-0 left-0 z-50 h-screen w-screen bg-gray-900/60 flex justify-center items-center">
       <div className="relative bg-white w-[30rem] flex flex-col gap-4 p-8 rounded-2xl">
