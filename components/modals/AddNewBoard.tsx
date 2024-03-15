@@ -1,6 +1,7 @@
-import Image from "next/image";
 import useEscape from "../helpers/useEscapeFunction";
 import { useState, ChangeEvent } from "react";
+import DataInput from "./datainputs/DataInput";
+import DeleteInputButton from "./datainputs/DeleteInputButton";
 
 interface Column {
   name: string;
@@ -35,15 +36,35 @@ function AddNewBoard() {
     setBoard({ ...board, columns: updatedColumns });
   };
 
-  const handleColumnNameChange = (
-    index: number,
-    event: ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleColumnNameChange = (index: number, columnName: string) => {
     const updatedColumns = [...board.columns];
-    updatedColumns[index].name = event.target.value;
+    updatedColumns[index].name = columnName;
     setBoard({ ...board, columns: updatedColumns });
   };
-  console.log(board.columns)
+
+  const createBoard = async () => {
+    try {
+      const response = await fetch("your-api-url", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(board),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create board");
+      }
+
+      const data = await response.json();
+
+      // Provide feedback to the client
+      alert("Board created successfully");
+    } catch (error) {
+      // Provide feedback to the client
+      alert("Failed to create board. Please try again later.");
+    }
+  };
 
   return (
     isVisible && (
@@ -64,25 +85,11 @@ function AddNewBoard() {
             <h2 className="text-body-md text-gray-medium">Columns</h2>
             {board.columns.map((column, index) => (
               <div className="flex items-center gap-4" key={index}>
-                <input
-                  className="w-11/12 p-2 ring-2 ring-gray-light rounded"
-                  type="text"
-                  placeholder="Add column name"
+                <DataInput
                   value={column.name}
-                  onChange={(event) => handleColumnNameChange(index, event)}
+                  onChange={(value) => handleColumnNameChange(index, value)}
                 />
-                <svg
-                  onClick={() => handleDeleteColumn(index)}
-                  className="fill-gray-medium hover:fill-destructive"
-                  width="15"
-                  height="15"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g>
-                    <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z" />
-                    <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z" />
-                  </g>
-                </svg>
+                <DeleteInputButton onClick={() => handleDeleteColumn(index)} />
               </div>
             ))}
             <button
@@ -92,7 +99,10 @@ function AddNewBoard() {
               + Add New Column
             </button>
           </div>
-          <button className="h-10 bg-purple hover:bg-purple-hover text-white text-body-md rounded-3xl">
+          <button
+            className="h-10 bg-purple hover:bg-purple-hover text-white text-body-md rounded-3xl"
+            onClick={createBoard}
+          >
             Create New Board
           </button>
         </div>
