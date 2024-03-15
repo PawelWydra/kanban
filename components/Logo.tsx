@@ -5,13 +5,18 @@ import Image from "next/image";
 import LogoIcon from "@/assets/logo-dark.svg";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { ModalContext } from "@/context/ModalContext";
+import { HomeContext } from "@/context/HomeContext";
 
 const Logo = () => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const useModalStateContext = () => useContext(ModalContext);
-
   const { setAddNewTask, setEditBoard, setDeleteWarning } =
     useModalStateContext();
+  const useHomeStateContext = () => useContext(HomeContext);
+  const { boardSelectedId, boards } = useHomeStateContext();
+  let completeBoardSelected = boards.find(
+    (board) => board.id === boardSelectedId
+  );
   return (
     <div className="flex w-full h-24 divide-x-4">
       <div className="flex items-center px-6 w-2/12 min-w-[20rem]">
@@ -36,7 +41,7 @@ const Logo = () => {
         </button>
       </div>
       <div className="w-10/12 flex justify-between items-center px-4">
-        <h2 className="heading-xl">Platform Launch</h2>
+        <h2 className="heading-xl">{completeBoardSelected?.name}</h2>
         <div className="flex items-center gap-3">
           <button
             onClick={() => setAddNewTask(true)}
