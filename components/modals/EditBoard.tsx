@@ -9,7 +9,7 @@ function EditBoard() {
 
   return (
     isVisible && (
-      <div className="absolute h-screen w-screen bg-gray-900/60 flex justify-center items-center">
+      <div className="absolute h-screen w-screen bg-gray-900/60 flex justify-center items-center z-20">
         <div className="bg-white w-[30rem] flex flex-col gap-4 p-8 rounded-2xl">
           <h1 className="heading-lg">Edit Board</h1>
           <div className="flex flex-col mt-2">
@@ -59,7 +59,7 @@ function EditBoard() {
             </button>
           </div>
           <button className="h-10 bg-purple hover:bg-purple-hover text-white text-body-md rounded-3xl">
-            Save Changes
+            Save Ch
           </button>
         </div>
       </div>

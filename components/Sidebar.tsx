@@ -6,16 +6,20 @@ import SidebarIcon from "@/assets/icon-board.svg";
 import NightModeToggle from "./NightModeToggle";
 import OpenSidebarIcon from "@/assets/icon-show-sidebar.svg";
 import { HomeContext } from "../context/HomeContext";
+import { ModalContext } from "@/context/ModalContext";
 
 const SideBar = () => {
   const useHomeStateContext = () => useContext(HomeContext);
+  const useModalStateContext = () => useContext(ModalContext);
   const {
     boardSelectedId,
     setBoardSelectedId,
     showSidebar,
     setShowSidebar,
-    boards
+    boards,
   } = useHomeStateContext();
+
+  const { setAddNewBoard } = useModalStateContext();
 
   return (
     <>
@@ -41,7 +45,12 @@ const SideBar = () => {
             ))}
             <div className="flex items-center gap-3 h-12 w-[17.25rem] ml-6 cursor-pointer">
               <Image src={SidebarIcon} alt="board icon" />
-              <p className="heading-md text-purple">+ Create New Board</p>
+              <button
+                onClick={() => setAddNewBoard(true)}
+                className="heading-md text-purple"
+              >
+                + Create New Board
+              </button>
             </div>
           </div>
           <NightModeToggle />

@@ -27,10 +27,9 @@ const Board = ({ boards }: Props) => {
 
   return (
     <>
-  
       {completeBoardSelected && completeBoardSelected.columns.length > 0 ? (
         <div className="w-full h-full flex gap-10 p-6">
-          {completeBoardSelected.columns.map((column, index) => (
+          {completeBoardSelected.columns.map((column) => (
             <Column
               name={column.name}
               key={column.id}

@@ -1,5 +1,5 @@
 import { HiOutlineDotsVertical } from "react-icons/hi";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/select";
 import SubtaskCheck from "@/components/modals/SubtaskCheck";
 import { Subtask, Task } from "@prisma/client";
+import { ModalContext } from "@/context/ModalContext";
 
 const TaskInfo = ({ title, description, status, subtasks }: Task) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -18,17 +19,26 @@ const TaskInfo = ({ title, description, status, subtasks }: Task) => {
   const handleImageClick = () => {
     setIsDropdownVisible((prevState) => !prevState);
   };
- 
+  const useModalStateContext = () => useContext(ModalContext);
+
+  const { setEditTask, setDeleteWarning } = useModalStateContext();
+
   return (
-    <div className="absolute top-0 left-0 z-50 h-screen w-screen bg-gray-900/60 flex justify-center items-center">
+    <div className="absolute top-0 left-0 z-20 h-screen w-screen bg-gray-900/60 flex justify-center items-center">
       <div className="relative bg-white w-[30rem] flex flex-col gap-4 p-8 rounded-2xl">
         <div className="flex relative">
           {isDropdownVisible && (
             <div className="absolute -right-28 top-14 bg-white p-2 flex flex-col text-body-md rounded-xl">
-              <button className="text-gray-medium h-12 w-40 p-2 text-left">
+              <button
+                onClick={() => setEditTask(true)}
+                className="text-gray-medium h-12 w-40 p-2 text-left"
+              >
                 Edit Task
               </button>
-              <button className="text-destructive h-12 w-40 p-2 text-left">
+              <button
+                onClick={() => setDeleteWarning(true)}
+                className="text-destructive h-12 w-40 p-2 text-left"
+              >
                 Delete Task
               </button>
             </div>
