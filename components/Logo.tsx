@@ -1,19 +1,16 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import LogoIcon from "@/assets/logo-dark.svg";
 import { HiOutlineDotsVertical } from "react-icons/hi";
-import { ModalContext } from "@/context/ModalContext";
-import { HomeContext } from "@/context/HomeContext";
+import { useModalContext } from "@/context/ModalContext";
+import { useHomeContext } from "@/context/HomeContext";
 
 const Logo = () => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const useModalStateContext = () => useContext(ModalContext);
-  const { setAddNewTask, setEditBoard, setDeleteWarning } =
-    useModalStateContext();
-  const useHomeStateContext = () => useContext(HomeContext);
-  const { boardSelectedId, boards } = useHomeStateContext();
+  const { setAddNewTask, setEditBoard, setDeleteWarning } = useModalContext();
+  const { boardSelectedId, boards } = useHomeContext();
   let completeBoardSelected = boards.find(
     (board) => board.id === boardSelectedId
   );

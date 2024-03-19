@@ -32,11 +32,11 @@ export const HomeContextProvider = ({ children }: HomeContextProviderProps) => {
     </HomeContext.Provider>
   );
 };
-export const useHomeStateContext = () => {
+export const useHomeContext = () => {
   const context = useContext(HomeContext);
   if (!context) {
     throw new Error(
-      "useHomeStateContext must be used with a HomeContextProvider"
+      "useHomeContext must be used with a HomeContextProvider"
     );
   }
   return context;

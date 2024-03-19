@@ -2,7 +2,7 @@
 
 import Column from "@/components/Column";
 import { useEffect } from "react";
-import {useHomeStateContext } from "@/context/HomeContext";
+import { useHomeContext } from "@/context/HomeContext";
 import { IBoard } from "@/types/index";
 import EmptyBoard from "@/components/EmptyBoard";
 
@@ -11,8 +11,7 @@ type Props = {
 };
 
 const Board = ({ boards }: Props) => {
-  const { setBoards, setBoardSelectedId, boardSelectedId } =
-    useHomeStateContext();
+  const { setBoards, setBoardSelectedId, boardSelectedId } = useHomeContext();
   useEffect(() => {
     if (boards[0]) {
       setBoards(boards);
