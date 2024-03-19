@@ -1,13 +1,13 @@
 "use client";
 
-import React, { createContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { IBoard, ModalContextType } from "@/types";
 
 type ModalContextProviderProps = {
   children: React.ReactNode;
 };
 
-export const ModalContext = createContext({} as ModalContextType);
+export const ModalContext = createContext<ModalContextType | null>(null);
 
 export const ModalContextProvider = ({
   children,
@@ -39,4 +39,12 @@ export const ModalContextProvider = ({
       {children}
     </ModalContext.Provider>
   );
+};
+
+export const useModalContext = () => {
+  const context = useContext(ModalContext);
+  if (!context) {
+    throw new Error("useModalContext must be used with a ModalContextProvider");
+  }
+  return context;
 };
