@@ -1,13 +1,13 @@
 "use client";
 
-import React, { createContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { IBoard, HomeContextType } from "@/types";
 
 type HomeContextProviderProps = {
   children: React.ReactNode;
 };
 
-export const HomeContext = createContext({} as HomeContextType);
+export const HomeContext = createContext<HomeContextType | null>(null);
 
 export const HomeContextProvider = ({ children }: HomeContextProviderProps) => {
   const [boards, setBoards] = useState<IBoard[]>([]);
@@ -31,4 +31,13 @@ export const HomeContextProvider = ({ children }: HomeContextProviderProps) => {
       {children}
     </HomeContext.Provider>
   );
+};
+export const useHomeStateContext = () => {
+  const context = useContext(HomeContext);
+  if (!context) {
+    throw new Error(
+      "useHomeStateContext must be used with a HomeContextProvider"
+    );
+  }
+  return context;
 };

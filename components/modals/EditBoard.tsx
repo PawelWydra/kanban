@@ -1,12 +1,11 @@
 import useEscape from "../helpers/useEscapeFunction";
-import { useState, ChangeEvent, useContext, useEffect } from "react";
+import { useState} from "react";
 import DataInput from "./datainputs/DataInput";
 import DeleteInputButton from "./datainputs/DeleteInputButton";
-import { HomeContext } from "@/context/HomeContext";
+import {useHomeStateContext } from "@/context/HomeContext";
 
 function EditBoard() {
   const isVisible: boolean = useEscape();
-  const useHomeStateContext = () => useContext(HomeContext);
   const { boardSelectedId, boards } = useHomeStateContext();
   let completeBoardSelected = boards.find(
     (board) => board.id === boardSelectedId

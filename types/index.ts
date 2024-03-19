@@ -8,7 +8,7 @@ export type ITask = {
   title: string;
   description: string;
   status: string;
-  columnId: string;
+  columnId?: string;
   subtasks?: Subtask[];
 };
 

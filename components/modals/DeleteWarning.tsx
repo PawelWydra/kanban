@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import useEscape from "../helpers/useEscapeFunction";
 
 type DeleteBoardProps = {
   title: string;

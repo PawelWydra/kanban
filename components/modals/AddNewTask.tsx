@@ -9,17 +9,7 @@ import useEscape from "../helpers/useEscapeFunction";
 import { useState, ChangeEvent } from "react";
 import DataInput from "./datainputs/DataInput";
 import DeleteInputButton from "./datainputs/DeleteInputButton";
-
-interface Subtask {
-  name: string;
-}
-
-interface ITask {
-  title: string;
-  description: string;
-  subtasks: Subtask[];
-  status: string;
-}
+import { ITask } from "@/types";
 
 function AddNewTask() {
   const isVisible: boolean = useEscape();
@@ -27,7 +17,8 @@ function AddNewTask() {
     title: "",
     description: "",
     subtasks: [],
-    status: "Doing", // Default status
+    status: "Doing",
+    id: "",
   });
 
   const handleInputChange = (
@@ -38,7 +29,10 @@ function AddNewTask() {
   };
 
   const handleAddSubtask = () => {
-    setTask({ ...task, subtasks: [...task.subtasks, { name: "" }] });
+    setTask({
+      ...task,
+      subtasks: [...task.subtasks, { name: "", isCompleted: false }],
+    });
   };
 
   const handleDeleteSubtask = (index: number) => {
@@ -105,7 +99,7 @@ function AddNewTask() {
             {task.subtasks.map((subtask, index) => (
               <div className="flex items-center gap-4" key={index}>
                 <DataInput
-                  value={subtask.name}
+                  value={subtask.title}
                   onChange={(e) => handleSubtaskChange(index, e)}
                 />
                 <DeleteInputButton onClick={() => handleDeleteSubtask(index)} />

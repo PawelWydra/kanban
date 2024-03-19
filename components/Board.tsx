@@ -2,8 +2,7 @@
 
 import Column from "@/components/Column";
 import { useEffect } from "react";
-import { useContext } from "react";
-import { HomeContext } from "@/context/HomeContext";
+import {useHomeStateContext } from "@/context/HomeContext";
 import { IBoard } from "@/types/index";
 import EmptyBoard from "@/components/EmptyBoard";
 
@@ -12,7 +11,6 @@ type Props = {
 };
 
 const Board = ({ boards }: Props) => {
-  const useHomeStateContext = () => useContext(HomeContext);
   const { setBoards, setBoardSelectedId, boardSelectedId } =
     useHomeStateContext();
   useEffect(() => {
