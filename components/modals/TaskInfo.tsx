@@ -1,5 +1,5 @@
 import { HiOutlineDotsVertical } from "react-icons/hi";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/select";
 import SubtaskCheck from "@/components/modals/SubtaskCheck";
 import { Subtask, Task } from "@prisma/client";
-import { ModalContext } from "@/context/ModalContext";
+import { useModalContext } from "@/context/ModalContext";
 
 const TaskInfo = ({ title, description, status, subtasks }: Task) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -19,9 +19,8 @@ const TaskInfo = ({ title, description, status, subtasks }: Task) => {
   const handleImageClick = () => {
     setIsDropdownVisible((prevState) => !prevState);
   };
-  const useModalStateContext = () => useContext(ModalContext);
 
-  const { setEditTask, setDeleteWarning } = useModalStateContext();
+  const { setEditTask, setDeleteWarning } = useModalContext();
 
   return (
     <div className="absolute top-0 left-0 z-20 h-screen w-screen bg-gray-900/60 flex justify-center items-center">
