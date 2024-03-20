@@ -25,6 +25,11 @@ export type IBoard = {
   columns: IColumn[];
 };
 
+export type TaskInfo = {
+  active: boolean;
+  id: string;
+};
+
 export type HomeContextType = {
   boards: IBoard[];
   boardSelectedId: string;
@@ -42,11 +47,11 @@ export type ModalContextType = {
   deleteWarning: boolean;
   editBoard: boolean;
   editTask: boolean;
-  taskInfo: boolean;
+  taskInfo: TaskInfo;
   setAddNewBoard: React.Dispatch<React.SetStateAction<boolean>>;
   setAddNewTask: React.Dispatch<React.SetStateAction<boolean>>;
   setDeleteWarning: React.Dispatch<React.SetStateAction<boolean>>;
   setEditBoard: React.Dispatch<React.SetStateAction<boolean>>;
   setEditTask: React.Dispatch<React.SetStateAction<boolean>>;
-  setTaskInfo: React.Dispatch<React.SetStateAction<boolean>>;
+  setTaskInfo: React.Dispatch<React.SetStateAction<TaskInfo>>;
 };

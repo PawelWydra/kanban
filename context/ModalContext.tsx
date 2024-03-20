@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState } from "react";
-import { IBoard, ModalContextType } from "@/types";
+import { ModalContextType } from "@/types";
 
 type ModalContextProviderProps = {
   children: React.ReactNode;
@@ -17,7 +17,10 @@ export const ModalContextProvider = ({
   const [deleteWarning, setDeleteWarning] = useState(false);
   const [editBoard, setEditBoard] = useState(false);
   const [editTask, setEditTask] = useState(false);
-  const [taskInfo, setTaskInfo] = useState(false);
+  const [taskInfo, setTaskInfo] = useState({
+    active: false,
+    id: "",
+  });
 
   return (
     <ModalContext.Provider

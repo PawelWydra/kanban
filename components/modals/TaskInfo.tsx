@@ -1,5 +1,5 @@
 import { HiOutlineDotsVertical } from "react-icons/hi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -10,17 +10,23 @@ import {
 import SubtaskCheck from "@/components/modals/SubtaskCheck";
 import { Subtask, Task } from "@prisma/client";
 import { useModalContext } from "@/context/ModalContext";
+import { useHomeContext } from "@/context/HomeContext";
 
-const TaskInfo = ({ title, description, status, subtasks }: Task) => {
-  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const subtaskCompleted = subtasks?.filter(
-    (subtask: Subtask) => subtask.isCompleted === true
-  );
+const TaskInfo = (id: string) => {
   const handleImageClick = () => {
     setIsDropdownVisible((prevState) => !prevState);
   };
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const { setEditTask, setDeleteWarning, taskInfo } = useModalContext();
+  const { boards } = useHomeContext();
 
-  const { setEditTask, setDeleteWarning } = useModalContext();
+  useEffect(() => {
+    "get task by id route handler";
+  });
+
+  const subtaskCompleted = subtasks?.filter(
+    (subtask: Subtask) => subtask.isCompleted === true
+  );
 
   return (
     <div className="absolute top-0 left-0 z-20 h-screen w-screen bg-gray-900/60 flex justify-center items-center">
