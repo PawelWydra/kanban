@@ -3,11 +3,10 @@ import { useState } from "react";
 type DataInputProps = {
   value: string;
   onChange: (value: string) => void;
-  onBlur: () => void;
   error?: boolean;
 };
 
-function DataInput({ value, onChange, onBlur, error = false }: DataInputProps) {
+function DataInput({ value, onChange, error = false }: DataInputProps) {
   const [hasFocus, setHasFocus] = useState(false);
 
   const handleBlur = () => {
