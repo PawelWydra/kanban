@@ -1,3 +1,9 @@
+export enum Type {
+  Board = "board",
+  Column = "column",
+  Task = "task",
+}
+
 export type Subtask = {
   title: string;
   isCompleted: boolean;
@@ -30,6 +36,13 @@ export type TaskInfo = {
   id: string;
 };
 
+export type DeleteModal = {
+  type: Type | string;
+  title: string;
+  id: string;
+  active: boolean;
+};
+
 export type HomeContextType = {
   boards: IBoard[];
   boardSelectedId: string;
@@ -44,13 +57,13 @@ export type HomeContextType = {
 export type ModalContextType = {
   addNewBoard: boolean;
   addNewTask: boolean;
-  deleteWarning: boolean;
+  deleteWarning: DeleteModal;
   editBoard: boolean;
   editTask: boolean;
   taskInfo: TaskInfo;
   setAddNewBoard: React.Dispatch<React.SetStateAction<boolean>>;
   setAddNewTask: React.Dispatch<React.SetStateAction<boolean>>;
-  setDeleteWarning: React.Dispatch<React.SetStateAction<boolean>>;
+  setDeleteWarning: React.Dispatch<React.SetStateAction<DeleteModal>>;
   setEditBoard: React.Dispatch<React.SetStateAction<boolean>>;
   setEditTask: React.Dispatch<React.SetStateAction<boolean>>;
   setTaskInfo: React.Dispatch<React.SetStateAction<TaskInfo>>;

@@ -1,17 +1,16 @@
-enum Type {
-  Board = "board",
-  Column = "column",
-  Task = "task",
-}
+import { useModalContext } from "@/context/ModalContext";
+import { Type } from "@/types";
 
 type DeleteBoardProps = {
-  type: Type;
+  type: Type | string;
   title: string;
   id: string;
 };
 
 function DeleteWarning({ type, title, id }: DeleteBoardProps) {
   let paragraph: string;
+
+  const { setDeleteWarning } = useModalContext();
 
   if (type === Type.Task) {
     paragraph = `Are you sure you want to delete the ‘${title}’ task and its subtasks? This action cannot be reversed.`;
@@ -30,6 +29,10 @@ function DeleteWarning({ type, title, id }: DeleteBoardProps) {
     });
   };
 
+  const closeModal = () => {
+    setDeleteWarning({ type: "", title: "", id: "", active: false });
+  };
+
   return (
     <div className="absolute h-screen w-screen bg-gray-900/60 flex justify-center items-center z-50">
       <div className="bg-white w-[30rem] flex flex-col gap-4 p-8 rounded-2xl">
@@ -42,7 +45,10 @@ function DeleteWarning({ type, title, id }: DeleteBoardProps) {
           >
             Delete
           </button>
-          <button className="h-10 bg-gray-light hover:bg-gray-100 text-purple text-body-md rounded-3xl">
+          <button
+            onClick={closeModal}
+            className="h-10 bg-gray-light hover:bg-gray-100 text-purple text-body-md rounded-3xl"
+          >
             Cancel
           </button>
         </div>

@@ -21,7 +21,13 @@ const ModalContainer = () => {
     <>
       {addNewTask && <AddNewTask />}
       {addNewBoard && <AddNewBoard />}
-      {deleteWarning && <DeleteWarning />}
+      {deleteWarning.active && (
+        <DeleteWarning
+          type={deleteWarning.type}
+          title={deleteWarning.title}
+          id={deleteWarning.id}
+        />
+      )}
       {editBoard && <EditBoard />}
       {editTask && <EditTask />}
       {taskInfo.active && <TaskInfo id={taskInfo.id} />}

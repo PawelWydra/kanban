@@ -14,7 +14,12 @@ export const ModalContextProvider = ({
 }: ModalContextProviderProps) => {
   const [addNewBoard, setAddNewBoard] = useState(false);
   const [addNewTask, setAddNewTask] = useState(false);
-  const [deleteWarning, setDeleteWarning] = useState(false);
+  const [deleteWarning, setDeleteWarning] = useState({
+    type: "",
+    title: "",
+    id: "",
+    active: false,
+  });
   const [editBoard, setEditBoard] = useState(false);
   const [editTask, setEditTask] = useState(false);
   const [taskInfo, setTaskInfo] = useState({
