@@ -10,22 +10,23 @@ function EditBoard() {
   let completeBoardSelected = boards.find(
     (board) => board.id === boardSelectedId
   );
-  const [currentBoard, setCurretnedBoard] = useState(completeBoardSelected);
+  const [currentBoard, setCurrentBoard] = useState(completeBoardSelected);
 
   const handleColumnNameChange = (index: number, value: string) => {
     const updatedColumns = [...currentBoard?.columns!];
     updatedColumns[index].name = value;
-    setCurretnedBoard((prev) => ({
+    setCurrentBoard((prev) => ({
       ...prev!,
       columns: updatedColumns,
     }));
   };
+
   const handleDeleteColumn = (index: number) => {
     if (!currentBoard) return;
     const updatedColumns = currentBoard.columns.filter(
       (column, columnIndex) => columnIndex !== index
     );
-    setCurretnedBoard((prev) => ({
+    setCurrentBoard((prev) => ({
       ...prev!,
       columns: updatedColumns,
     }));
@@ -33,10 +34,31 @@ function EditBoard() {
 
   const handleAddColumn = () => {
     if (!currentBoard) return;
-    setCurretnedBoard((prev) => ({
+
+    // Check if there's an existing column with an empty name
+    const hasEmptyColumnName = currentBoard.columns.some(
+      (column) => column.name.trim() === ""
+    );
+
+    if (hasEmptyColumnName) {
+      alert("Please fill in all column names before adding a new one.");
+      return;
+    }
+
+    setCurrentBoard((prev) => ({
       ...prev!,
       columns: [...prev!.columns, { id: "", boardId: "", name: "" }],
     }));
+  };
+  const handleBoardNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentBoard((prev) => ({
+      ...prev!,
+      name: e.target.value,
+    }));
+  };
+
+  const handleSaveChanges = () => {
+    // Save changes to the board here
   };
 
   return (
@@ -51,6 +73,8 @@ function EditBoard() {
               type="text"
               placeholder="e.g. Web Design"
               value={currentBoard?.name}
+              onChange={handleBoardNameChange}
+              onBlur={handleSaveChanges}
             />
           </div>
           <div className="flex flex-col gap-4">
@@ -58,6 +82,7 @@ function EditBoard() {
             {currentBoard?.columns.map((column, index) => (
               <div className="flex items-center gap-4" key={index}>
                 <DataInput
+                  error={column.name.trim() === ""}
                   value={column.name}
                   onChange={(value) => handleColumnNameChange(index, value)}
                 />
@@ -73,7 +98,7 @@ function EditBoard() {
           </div>
           <button
             className="h-10 bg-purple hover:bg-purple-hover text-white text-body-md rounded-3xl"
-            onClick={EditBoard}
+            onClick={handleSaveChanges}
           >
             Save Changes
           </button>
