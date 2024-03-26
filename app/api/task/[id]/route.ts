@@ -14,3 +14,13 @@ export async function GET(request: Request, { params }: { params: Params }) {
   });
   return NextResponse.json(task);
 }
+
+export async function DELETE(request: Request, { params }: { params: Params }) {
+  const { id } = params;
+  const task = await prisma.task.delete({
+    where: {
+      id: id,
+    },
+  });
+  return NextResponse.json(task);
+}
