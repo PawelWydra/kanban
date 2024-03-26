@@ -16,20 +16,23 @@ const TaskInfo = ({ id }: { id: string }) => {
     setIsDropdownVisible((prevState) => !prevState);
   };
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const { setEditTask, setDeleteWarning, taskInfo } = useModalContext();
+  const { setEditTask, setDeleteWarning } = useModalContext();
   const [task, setTask] = useState<Task>();
-
   useEffect(() => {
     const getTask = async () => {
       console.log(id);
       const taskData = await fetch(`/api/task/${id}`);
-      const fetchedTask = await taskData.json();
+      const fetchedTask: Task = await taskData.json();
       setTask(fetchedTask);
     };
     getTask();
   }, [id]);
 
-  const subtaskCompleted = task?.subtasks.filter(
+  if (task === undefined) {
+    return <div>No task Provided</div>;
+  }
+
+  const subtaskCompleted = task.subtasks.filter(
     (subtask: Subtask) => subtask.isCompleted === true
   );
 
@@ -46,14 +49,21 @@ const TaskInfo = ({ id }: { id: string }) => {
                 Edit Task
               </button>
               <button
-                onClick={() => setDeleteWarning(true)}
+                onClick={() =>
+                  setDeleteWarning({
+                    id: id,
+                    type: "task",
+                    title: task.title,
+                    active: true,
+                  })
+                }
                 className="text-destructive h-12 w-40 p-2 text-left"
               >
                 Delete Task
               </button>
             </div>
           )}
-          <h1 className="heading-lg w-11/12">{task?.title}</h1>
+          <h1 className="heading-lg w-11/12">{task.title}</h1>
           <HiOutlineDotsVertical
             size={25}
             className="cursor-pointer self-center"
@@ -62,12 +72,12 @@ const TaskInfo = ({ id }: { id: string }) => {
         </div>
 
         <p className="text-body-md text-gray-medium">
-          {task?.description === "" ? "add description" : task?.description}
+          {task?.description === "" ? "add description" : task.description}
         </p>
 
         <div className="w-full rounded-xl py-2">
           <p className="text-body-md text-gray-medium">
-            {subtaskCompleted?.length} of {task?.subtasks.length} subtask
+            {subtaskCompleted.length} of {task.subtasks.length} subtask
           </p>
           {task?.subtasks.map((subtask, index) => (
             <SubtaskCheck
@@ -81,7 +91,7 @@ const TaskInfo = ({ id }: { id: string }) => {
           <p className="text-body-md text-gray-medium">Current Status</p>
           <Select>
             <SelectTrigger className="w-full">
-              <SelectValue placeholder={task?.status} />
+              <SelectValue placeholder={task.status} />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="light">To do</SelectItem>
