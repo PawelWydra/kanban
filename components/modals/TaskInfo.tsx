@@ -81,7 +81,7 @@ const TaskInfo = ({ id }: { id: string }) => {
           <p className="text-body-md text-gray-medium">Current Status</p>
           <Select>
             <SelectTrigger className="w-full">
-              <SelectValue placeholder={status} />
+              <SelectValue placeholder={task?.status} />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="light">To do</SelectItem>
