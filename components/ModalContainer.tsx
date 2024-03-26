@@ -24,7 +24,7 @@ const ModalContainer = () => {
       {deleteWarning && <DeleteWarning />}
       {editBoard && <EditBoard />}
       {editTask && <EditTask />}
-      {taskInfo.active && <TaskInfo />}
+      {taskInfo.active && <TaskInfo id={taskInfo.id} />}
     </>
   );
 };

@@ -1,6 +1,5 @@
-import { useContext } from "react";
 import { ITask } from "@/types/index";
-import { ModalContext, useModalContext } from "@/context/ModalContext";
+import { useModalContext } from "@/context/ModalContext";
 
 const Task = ({ title, description, status, subtasks, id }: ITask) => {
   const { setTaskInfo } = useModalContext();

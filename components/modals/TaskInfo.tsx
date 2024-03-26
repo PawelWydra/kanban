@@ -10,21 +10,26 @@ import {
 import SubtaskCheck from "@/components/modals/SubtaskCheck";
 import { Subtask, Task } from "@prisma/client";
 import { useModalContext } from "@/context/ModalContext";
-import { useHomeContext } from "@/context/HomeContext";
 
-const TaskInfo = (id: string) => {
+const TaskInfo = ({ id }: { id: string }) => {
   const handleImageClick = () => {
     setIsDropdownVisible((prevState) => !prevState);
   };
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const { setEditTask, setDeleteWarning, taskInfo } = useModalContext();
-  const { boards } = useHomeContext();
+  const [task, setTask] = useState<Task>();
 
   useEffect(() => {
-    "get task by id route handler";
-  });
+    const getTask = async () => {
+      console.log(id);
+      const taskData = await fetch(`/api/task/${id}`);
+      const fetchedTask = await taskData.json();
+      setTask(fetchedTask);
+    };
+    getTask();
+  }, [id]);
 
-  const subtaskCompleted = subtasks?.filter(
+  const subtaskCompleted = task?.subtasks.filter(
     (subtask: Subtask) => subtask.isCompleted === true
   );
 
@@ -48,7 +53,7 @@ const TaskInfo = (id: string) => {
               </button>
             </div>
           )}
-          <h1 className="heading-lg w-11/12">{title}</h1>
+          <h1 className="heading-lg w-11/12">{task?.title}</h1>
           <HiOutlineDotsVertical
             size={25}
             className="cursor-pointer self-center"
@@ -57,14 +62,14 @@ const TaskInfo = (id: string) => {
         </div>
 
         <p className="text-body-md text-gray-medium">
-          {description === "" ? "add description" : description}
+          {task?.description === "" ? "add description" : task?.description}
         </p>
 
         <div className="w-full rounded-xl py-2">
           <p className="text-body-md text-gray-medium">
-            {subtaskCompleted?.length} of {subtasks?.length} subtask
+            {subtaskCompleted?.length} of {task?.subtasks.length} subtask
           </p>
-          {subtasks?.map((subtask, index) => (
+          {task?.subtasks.map((subtask, index) => (
             <SubtaskCheck
               key={index}
               title={subtask.title}
