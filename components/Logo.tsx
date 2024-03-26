@@ -6,6 +6,7 @@ import LogoIcon from "@/assets/logo-dark.svg";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { useModalContext } from "@/context/ModalContext";
 import { useHomeContext } from "@/context/HomeContext";
+import { Type } from "@/types";
 
 const Logo = () => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -26,7 +27,14 @@ const Logo = () => {
               Edit Board
             </button>
             <button
-              onClick={() => setDeleteWarning(true)}
+              onClick={() =>
+                setDeleteWarning({
+                  id: boardSelectedId,
+                  type: Type.Board,
+                  title: completeBoardSelected?.name!,
+                  active: true,
+                })
+              }
               className="text-destructive h-12 w-40 p-2 text-left"
             >
               Delete Board
