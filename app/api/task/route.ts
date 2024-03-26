@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function DELETE(request: Request) {
   const body = await request.json();
   const id = body.id;
-  const task = await prisma.task.delete({
+  await prisma.task.delete({
     where: {
       id: id,
     },
