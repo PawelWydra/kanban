@@ -13,10 +13,10 @@ function EditBoard() {
   const [currentBoard, setCurretnedBoard] = useState(completeBoardSelected);
 
   const handleColumnNameChange = (index: number, value: string) => {
-    const updatedColumns = [...currentBoard.columns];
+    const updatedColumns = [...currentBoard?.columns!];
     updatedColumns[index].name = value;
     setCurretnedBoard((prev) => ({
-      ...prev,
+      ...prev!,
       columns: updatedColumns,
     }));
   };
@@ -26,7 +26,7 @@ function EditBoard() {
       (column, columnIndex) => columnIndex !== index
     );
     setCurretnedBoard((prev) => ({
-      ...prev,
+      ...prev!,
       columns: updatedColumns,
     }));
   };
@@ -34,33 +34,9 @@ function EditBoard() {
   const handleAddColumn = () => {
     if (!currentBoard) return;
     setCurretnedBoard((prev) => ({
-      ...prev,
-      columns: [...prev.columns, { name: "" }],
+      ...prev!,
+      columns: [...prev!.columns, { id: "", boardId: "", name: "" }],
     }));
-  };
-
-  const EditBoard = async () => {
-    try {
-      const response = await fetch("your-api-url", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(currentBoard),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to update board");
-      }
-
-      const data = await response.json();
-
-      // Provide feedback to the client
-      alert("Board updated successfully");
-    } catch (error) {
-      // Provide feedback to the client
-      alert("Failed to update board. Please try again later.");
-    }
   };
 
   return (
