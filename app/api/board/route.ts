@@ -11,3 +11,20 @@ export async function DELETE(request: Request) {
   });
   return NextResponse.json("Board deleted successfully!", { status: 200 });
 }
+
+export async function PUT(request: Request) {
+  const body = await request.json();
+  const { id, name, columns } = body;
+  await prisma.board.update({
+    where: {
+      id: id,
+    },
+    data: {
+      name: name,
+      columns: {
+        set: columns,
+      },
+    },
+  });
+  return NextResponse.json("Board updated successfully!", { status: 200 });
+}
