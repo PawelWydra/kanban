@@ -54,11 +54,9 @@ function AddNewTask() {
     const updatedSubtasks = [...(task.subtasks || [])] as Subtask[];
     updatedSubtasks[index].title = value;
     setTask({ ...task, subtasks: updatedSubtasks });
-    console.log(updatedSubtasks);
   };
 
   const handleCreateTask = async () => {
-    console.log(task);
     const response = await fetch("/api/task", {
       method: "POST",
       body: JSON.stringify(task),
@@ -125,17 +123,21 @@ function AddNewTask() {
           </div>
           <div className="flex flex-col gap-1">
             <p className="text-body-md text-gray-medium">Status</p>
-            <Select>
+            <Select
+              onValueChange={(value) => {
+                setTask({
+                  ...task,
+                  columnId: value,
+                  status: columns?.find((column) => column.id === value)?.name!,
+                });
+              }}
+            >
               <SelectTrigger className="w-full">
-                <SelectValue>{currentColumn?.name}</SelectValue>
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 {columns?.map((column) => (
-                  <SelectItem
-                    key={column.id}
-                    value={column.name}
-                    onClick={() => setTask({ ...task, columnId: column.id })}
-                  >
+                  <SelectItem key={column.id} value={column.id}>
                     {column.name}
                   </SelectItem>
                 ))}
