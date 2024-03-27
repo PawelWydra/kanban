@@ -58,7 +58,7 @@ function EditBoard() {
   };
 
   const handleSaveChanges = () => {
-    fetch("/api/boards", {
+    fetch("/api/board", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

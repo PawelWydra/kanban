@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { IColumn } from "@/types";
 
 export async function DELETE(request: Request) {
   const body = await request.json();
@@ -11,18 +12,47 @@ export async function DELETE(request: Request) {
   });
   return NextResponse.json("Board deleted successfully!", { status: 200 });
 }
-
 export async function PUT(request: Request) {
   const body = await request.json();
   const { id, name, columns } = body;
+
+  // Fetch the current board with its columns
+  const currentBoard = await prisma.board.findUnique({
+    where: { id: id },
+    include: { columns: true },
+  });
+
+  if (!currentBoard) {
+    throw new Error("Board not found");
+  }
+
+  // Identify the columns that need to be deleted, created, and updated
+  const columnsToDelete = currentBoard.columns.filter(
+    (column) =>
+      !columns.some((newColumn: IColumn) => newColumn.id === column.id)
+  );
+  const columnsToCreate = columns.filter(
+    (newColumn: IColumn) =>
+      !currentBoard.columns.some((column) => newColumn.id === column.id)
+  );
+  const columnsToUpdate = columns.filter((newColumn: IColumn) =>
+    currentBoard.columns.some((column) => newColumn.id === column.id)
+  );
+
+  // Perform the delete, create, and update operations
   await prisma.board.update({
-    where: {
-      id: id,
-    },
+    where: { id: id },
     data: {
       name: name,
       columns: {
-        set: columns,
+        deleteMany: columnsToDelete.map((column) => ({ id: column.id })),
+        create: columnsToCreate.map((column: IColumn) => ({
+          name: column.name,
+        })),
+        update: columnsToUpdate.map((column: IColumn) => ({
+          where: { id: column.id },
+          data: { name: column.name },
+        })),
       },
     },
   });
