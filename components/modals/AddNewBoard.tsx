@@ -3,21 +3,15 @@ import { useState, ChangeEvent } from "react";
 import DataInput from "./datainputs/DataInput";
 import DeleteInputButton from "./datainputs/DeleteInputButton";
 import { ToastContainer, toast } from "react-toastify";
-
-interface Column {
-  name: string;
-}
-
-interface Board {
-  name: string;
-  columns: Column[];
-}
+import { IBoard } from "@/types";
+import { v4 as uuidv4 } from "uuid";
 
 function AddNewBoard() {
   const isVisible: boolean = useEscape();
-  const [board, setBoard] = useState<Board>({
+  const [board, setBoard] = useState<IBoard>({
     name: "",
-    columns: [{ name: "To do" }, { name: "Doing" }],
+    columns: [],
+    id: uuidv4(),
   });
 
   const handleBoardNameChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +21,10 @@ function AddNewBoard() {
   const handleAddColumn = () => {
     setBoard({
       ...board,
-      columns: [...board.columns, { name: "" }],
+      columns: [
+        ...board.columns,
+        { name: "", boardId: board.id, id: uuidv4() },
+      ],
     });
   };
 
@@ -51,8 +48,7 @@ function AddNewBoard() {
 
     if (response.ok) {
       toast.success("Board created successfully!");
-      setBoard({ name: "", columns: [{ name: "To do" }, { name: "Doing" }] });
-      
+      setBoard({ name: "", columns: [], id: uuidv4() });
     } else {
       toast.error("Failed to create board");
     }
