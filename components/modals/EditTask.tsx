@@ -128,7 +128,7 @@ function EditTask(propTask: Task) {
             onClick={updateTask}
             className="h-10 bg-purple hover:bg-purple-hover text-white text-body-md rounded-3xl"
           >
-            Create Task
+            Edit Task
           </button>
         </div>
       </div>
