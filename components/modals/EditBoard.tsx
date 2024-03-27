@@ -58,7 +58,23 @@ function EditBoard() {
   };
 
   const handleSaveChanges = () => {
-    // Save changes to the board here
+    fetch("/api/boards", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(currentBoard),
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("Board updated successfully");
+        } else {
+          alert("An error occurred while updating the board");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
@@ -74,7 +90,6 @@ function EditBoard() {
               placeholder="e.g. Web Design"
               value={currentBoard?.name}
               onChange={handleBoardNameChange}
-              onBlur={handleSaveChanges}
             />
           </div>
           <div className="flex flex-col gap-4">
