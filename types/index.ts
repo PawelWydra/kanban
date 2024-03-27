@@ -1,3 +1,5 @@
+import { Task } from "@prisma/client";
+
 export enum Type {
   Board = "board",
   Column = "column",
@@ -36,6 +38,11 @@ export type TaskInfo = {
   id: string;
 };
 
+export type EditNewTask = {
+  active: boolean;
+  task: Task;
+};
+
 export type DeleteModal = {
   type: Type | string;
   title: string;
@@ -59,12 +66,12 @@ export type ModalContextType = {
   addNewTask: boolean;
   deleteWarning: DeleteModal;
   editBoard: boolean;
-  editTask: boolean;
+  editTask: EditNewTask;
   taskInfo: TaskInfo;
   setAddNewBoard: React.Dispatch<React.SetStateAction<boolean>>;
   setAddNewTask: React.Dispatch<React.SetStateAction<boolean>>;
   setDeleteWarning: React.Dispatch<React.SetStateAction<DeleteModal>>;
   setEditBoard: React.Dispatch<React.SetStateAction<boolean>>;
-  setEditTask: React.Dispatch<React.SetStateAction<boolean>>;
+  setEditTask: React.Dispatch<React.SetStateAction<EditNewTask>>;
   setTaskInfo: React.Dispatch<React.SetStateAction<TaskInfo>>;
 };

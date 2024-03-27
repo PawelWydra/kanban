@@ -28,8 +28,7 @@ function AddNewTask() {
 
   const currentboard = boards.find((board) => board.id === boardSelectedId);
   const columns = currentboard?.columns;
-  let currentColumn = columns?.find((column) => column.id === task.columnId);
-
+  
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     field: string

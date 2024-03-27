@@ -25,3 +25,20 @@ export async function POST(request: Request) {
   });
   return NextResponse.json("Task created successfully!", { status: 200 });
 }
+
+export async function PUT(request: Request) {
+  const body = await request.json();
+  await prisma.task.update({
+    where: {
+      id: body.id,
+    },
+    data: {
+      title: body.title,
+      description: body.description,
+      subtasks: body.subtasks,
+      status: body.status,
+      columnId: body.columnId,
+    },
+  });
+  return NextResponse.json("Task updated successfully!", { status: 200 });
+}

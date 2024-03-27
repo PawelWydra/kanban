@@ -21,7 +21,10 @@ export const ModalContextProvider = ({
     active: false,
   });
   const [editBoard, setEditBoard] = useState(false);
-  const [editTask, setEditTask] = useState(false);
+  const [editTask, setEditTask] = useState({
+    active: false,
+    id: "",
+  });
   const [taskInfo, setTaskInfo] = useState({
     active: false,
     id: "",

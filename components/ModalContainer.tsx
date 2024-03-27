@@ -29,7 +29,7 @@ const ModalContainer = () => {
         />
       )}
       {editBoard && <EditBoard />}
-      {editTask && <EditTask />}
+      {editTask.active && <EditTask {...editTask.task} />} 
       {taskInfo.active && <TaskInfo id={taskInfo.id} />}
     </>
   );

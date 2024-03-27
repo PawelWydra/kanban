@@ -43,7 +43,7 @@ const TaskInfo = ({ id }: { id: string }) => {
           {isDropdownVisible && (
             <div className="absolute -right-28 top-14 bg-white p-2 flex flex-col text-body-md rounded-xl">
               <button
-                onClick={() => setEditTask(true)}
+                onClick={() => setEditTask({ active: true, task: task })}
                 className="text-gray-medium h-12 w-40 p-2 text-left"
               >
                 Edit Task
