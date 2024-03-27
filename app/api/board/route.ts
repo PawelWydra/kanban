@@ -58,3 +58,19 @@ export async function PUT(request: Request) {
   });
   return NextResponse.json("Board updated successfully!", { status: 200 });
 }
+
+export async function POST(request: Request) {
+  const body = await request.json();
+  const { name, columns } = body;
+  const board = await prisma.board.create({
+    data: {
+      name: name,
+      columns: {
+        create: columns.map((column: IColumn) => ({
+          name: column.name,
+        })),
+      },
+    },
+  });
+  return NextResponse.json("Board added successufully", { status: 201 });
+}

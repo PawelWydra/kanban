@@ -2,6 +2,7 @@ import useEscape from "../helpers/useEscapeFunction";
 import { useState, ChangeEvent } from "react";
 import DataInput from "./datainputs/DataInput";
 import DeleteInputButton from "./datainputs/DeleteInputButton";
+import { ToastContainer, toast } from "react-toastify";
 
 interface Column {
   name: string;
@@ -43,32 +44,24 @@ function AddNewBoard() {
   };
 
   const createBoard = async () => {
-    try {
-      const response = await fetch("your-api-url", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(board),
-      });
+    const response = await fetch("/api/board", {
+      method: "POST",
+      body: JSON.stringify(board),
+    });
 
-      if (!response.ok) {
-        throw new Error("Failed to create board");
-      }
-
-      const data = await response.json();
-
-      // Provide feedback to the client
-      alert("Board created successfully");
-    } catch (error) {
-      // Provide feedback to the client
-      alert("Failed to create board. Please try again later.");
+    if (response.ok) {
+      toast.success("Board created successfully!");
+      setBoard({ name: "", columns: [{ name: "To do" }, { name: "Doing" }] });
+      
+    } else {
+      toast.error("Failed to create board");
     }
   };
 
   return (
     isVisible && (
       <div className="absolute h-screen w-screen bg-gray-900/60 flex justify-center items-center z-20">
+        <ToastContainer />
         <div className="bg-white w-[30rem] flex flex-col gap-4 p-8 rounded-2xl">
           <h1 className="heading-lg">Add New Board</h1>
           <div className="flex flex-col mt-2">
