@@ -12,16 +12,23 @@ import DeleteInputButton from "./datainputs/DeleteInputButton";
 import { ITask, Subtask } from "@/types";
 import { ToastContainer, toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
+import { useHomeContext } from "@/context/HomeContext";
 
 function AddNewTask() {
   const isVisible: boolean = useEscape();
+  const { boards, boardSelectedId } = useHomeContext();
   const [task, setTask] = useState<ITask>({
     title: "",
     description: "",
     subtasks: [],
     status: "",
     id: uuidv4(),
+    columnId: "",
   });
+
+  const currentboard = boards.find((board) => board.id === boardSelectedId);
+  const columns = currentboard?.columns;
+  let currentColumn = columns?.find((column) => column.id === task.columnId);
 
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -51,6 +58,7 @@ function AddNewTask() {
   };
 
   const handleCreateTask = async () => {
+    console.log(task);
     const response = await fetch("/api/task", {
       method: "POST",
       body: JSON.stringify(task),
@@ -63,7 +71,8 @@ function AddNewTask() {
         description: "",
         subtasks: [],
         status: "",
-        id: "",
+        id: uuidv4(),
+        columnId: "",
       });
     } else {
       toast.error("Failed to create task");
@@ -118,27 +127,18 @@ function AddNewTask() {
             <p className="text-body-md text-gray-medium">Status</p>
             <Select>
               <SelectTrigger className="w-full">
-                <SelectValue placeholder={task.status}></SelectValue>
+                <SelectValue>{currentColumn?.name}</SelectValue>
               </SelectTrigger>
               <SelectContent>
-                <SelectItem
-                  value="To do"
-                  onClick={() => setTask({ ...task, status: "To do" })}
-                >
-                  To do
-                </SelectItem>
-                <SelectItem
-                  value="Doing"
-                  onClick={() => setTask({ ...task, status: "Doing" })}
-                >
-                  Doing
-                </SelectItem>
-                <SelectItem
-                  value="Done"
-                  onClick={() => setTask({ ...task, status: "Done" })}
-                >
-                  Done
-                </SelectItem>
+                {columns?.map((column) => (
+                  <SelectItem
+                    key={column.id}
+                    value={column.name}
+                    onClick={() => setTask({ ...task, columnId: column.id })}
+                  >
+                    {column.name}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>

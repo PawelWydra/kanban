@@ -11,3 +11,17 @@ export async function DELETE(request: Request) {
   });
   return NextResponse.json("Task deleted successfully!", { status: 200 });
 }
+
+export async function POST(request: Request) {
+  const body = await request.json();
+  await prisma.task.create({
+    data: {
+      title: body.title,
+      description: body.description,
+      subtasks: body.subtasks,
+      status: body.status,
+      columnId: body.columnId,
+    },
+  });
+  return NextResponse.json("Task created successfully!", { status: 200 });
+}
