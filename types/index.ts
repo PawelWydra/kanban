@@ -38,7 +38,7 @@ export type TaskInfo = {
   id: string;
 };
 
-export type EditNewTask = {
+export type EditTask = {
   active: boolean;
   task: Task;
 };
@@ -66,12 +66,12 @@ export type ModalContextType = {
   addNewTask: boolean;
   deleteWarning: DeleteModal;
   editBoard: boolean;
-  editTask: EditNewTask;
+  editTask: EditTask;
   taskInfo: TaskInfo;
   setAddNewBoard: React.Dispatch<React.SetStateAction<boolean>>;
   setAddNewTask: React.Dispatch<React.SetStateAction<boolean>>;
   setDeleteWarning: React.Dispatch<React.SetStateAction<DeleteModal>>;
   setEditBoard: React.Dispatch<React.SetStateAction<boolean>>;
-  setEditTask: React.Dispatch<React.SetStateAction<EditNewTask>>;
+  setEditTask: React.Dispatch<React.SetStateAction<EditTask>>;
   setTaskInfo: React.Dispatch<React.SetStateAction<TaskInfo>>;
 };

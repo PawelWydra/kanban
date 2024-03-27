@@ -11,11 +11,14 @@ import DeleteInputButton from "./datainputs/DeleteInputButton";
 import DataInput from "./datainputs/DataInput";
 import { useState } from "react";
 import { useHomeContext } from "@/context/HomeContext";
+import { ToastContainer, toast } from "react-toastify";
+import { useModalContext } from "@/context/ModalContext";
 
 function EditTask(propTask: Task) {
   const isVisible: boolean = useEscape();
   const [task, setTask] = useState<Task>(propTask);
   const { boards, boardSelectedId } = useHomeContext();
+  const {setEditTask} = useModalContext();
 
   const currentboard = boards.find((board) => board.id === boardSelectedId);
   const columns = currentboard?.columns;
@@ -49,15 +52,17 @@ function EditTask(propTask: Task) {
     });
 
     if (response.ok) {
-      console.log("Task updated");
+      toast.success("Task updated successfully!");
+      setEditTask({ active: false, task: "" })
     } else {
-      console.error("Task not updated");
+      toast.error("An error occurred while updating the task.");
     }
   };
 
   return (
     isVisible && (
       <div className="absolute h-screen w-screen bg-gray-900/60 flex justify-center items-center z-30">
+        <ToastContainer />
         <div className="bg-white w-[30rem] flex flex-col gap-4 p-8 rounded-2xl">
           <h1 className="heading-lg">Edit Task</h1>
           <div className="flex flex-col mt-2">

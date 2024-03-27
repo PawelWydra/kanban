@@ -1,7 +1,8 @@
 "use client";
 
 import React, { createContext, useContext, useState } from "react";
-import { ModalContextType } from "@/types";
+import { EditTask, ModalContextType } from "@/types";
+import { Subtask } from "@/types";
 
 type ModalContextProviderProps = {
   children: React.ReactNode;
@@ -21,9 +22,17 @@ export const ModalContextProvider = ({
     active: false,
   });
   const [editBoard, setEditBoard] = useState(false);
-  const [editTask, setEditTask] = useState({
+
+  const [editTask, setEditTask] = useState<EditTask>({
     active: false,
-    id: "",
+    task: {
+      title: "",
+      description: "",
+      subtasks: [],
+      status: "",
+      id: "",
+      columnId: "",
+    },
   });
   const [taskInfo, setTaskInfo] = useState({
     active: false,
