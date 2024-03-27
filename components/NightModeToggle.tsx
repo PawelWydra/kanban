@@ -2,13 +2,11 @@ import Sun from "@/assets/icon-light-theme.svg";
 import Moon from "@/assets/icon-dark-theme.svg";
 import { Switch } from "@/components/ui/switch";
 import Image from "next/image";
-import { HomeContext } from "../context/HomeContext";
-import { useContext } from "react";
+import { useHomeContext } from "../context/HomeContext";
 
 const NightModeToggle = () => {
-  const useHomeStateContext = () => useContext(HomeContext);
-  const { setShowSidebar, darkMode, setDarkMode } = useHomeStateContext();
-  console.log(darkMode)
+  const { setShowSidebar, darkMode, setDarkMode } = useHomeContext();
+  console.log(darkMode);
   return (
     <div className="relative">
       <div className="p-4 flex flex-col justify-center items-center gap-6 mb-6">
