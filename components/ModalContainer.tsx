@@ -1,4 +1,5 @@
 "use client";
+import { useEffect } from "react";
 import AddNewBoard from "./modals/AddNewBoard";
 import AddNewTask from "./modals/AddNewTask";
 import DeleteWarning from "./modals/DeleteWarning";
@@ -15,7 +16,22 @@ const ModalContainer = () => {
     editBoard,
     editTask,
     taskInfo,
+    closeModal,
   } = useModalContext();
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  });
 
   return (
     <>
@@ -29,7 +45,7 @@ const ModalContainer = () => {
         />
       )}
       {editBoard && <EditBoard />}
-      {editTask.active && <EditTask {...editTask.task} />} 
+      {editTask.active && <EditTask {...editTask.task} />}
       {taskInfo.active && <TaskInfo id={taskInfo.id} />}
     </>
   );

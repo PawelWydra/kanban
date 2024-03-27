@@ -74,4 +74,5 @@ export type ModalContextType = {
   setEditBoard: React.Dispatch<React.SetStateAction<boolean>>;
   setEditTask: React.Dispatch<React.SetStateAction<EditTask>>;
   setTaskInfo: React.Dispatch<React.SetStateAction<TaskInfo>>;
+  closeModal: () => void;
 };

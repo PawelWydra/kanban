@@ -39,6 +39,33 @@ export const ModalContextProvider = ({
     id: "",
   });
 
+  const closeModal = () => {
+    setAddNewBoard(false);
+    setAddNewTask(false);
+    setDeleteWarning({
+      type: "",
+      title: "",
+      id: "",
+      active: false,
+    });
+    setEditBoard(false);
+    setEditTask({
+      active: false,
+      task: {
+        title: "",
+        description: "",
+        subtasks: [],
+        status: "",
+        id: "",
+        columnId: "",
+      },
+    });
+    setTaskInfo({
+      active: false,
+      id: "",
+    });
+  };
+
   return (
     <ModalContext.Provider
       value={{
@@ -54,6 +81,7 @@ export const ModalContextProvider = ({
         setEditBoard,
         setEditTask,
         setTaskInfo,
+        closeModal, // add closeModal to the context value
       }}
     >
       {children}
