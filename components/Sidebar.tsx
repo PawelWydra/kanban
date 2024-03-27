@@ -1,25 +1,22 @@
 "use client";
 
-import { useContext } from "react";
 import Image from "next/image";
 import SidebarIcon from "@/assets/icon-board.svg";
 import NightModeToggle from "./NightModeToggle";
 import OpenSidebarIcon from "@/assets/icon-show-sidebar.svg";
-import { HomeContext } from "../context/HomeContext";
-import { ModalContext } from "@/context/ModalContext";
+import { useHomeContext } from "../context/HomeContext";
+import { useModalContext } from "@/context/ModalContext";
 
 const SideBar = () => {
-  const useHomeStateContext = () => useContext(HomeContext);
-  const useModalStateContext = () => useContext(ModalContext);
   const {
     boardSelectedId,
     setBoardSelectedId,
     showSidebar,
     setShowSidebar,
     boards,
-  } = useHomeStateContext();
+  } = useHomeContext();
 
-  const { setAddNewBoard } = useModalStateContext();
+  const { setAddNewBoard } = useModalContext();
 
   return (
     <>

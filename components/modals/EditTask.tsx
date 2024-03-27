@@ -12,13 +12,11 @@ import DataInput from "./datainputs/DataInput";
 import { useState } from "react";
 import { useHomeContext } from "@/context/HomeContext";
 import { ToastContainer, toast } from "react-toastify";
-import { useModalContext } from "@/context/ModalContext";
 
 function EditTask(propTask: Task) {
   const isVisible: boolean = useEscape();
   const [task, setTask] = useState<Task>(propTask);
   const { boards, boardSelectedId } = useHomeContext();
-  const {setEditTask} = useModalContext();
 
   const currentboard = boards.find((board) => board.id === boardSelectedId);
   const columns = currentboard?.columns;
@@ -53,7 +51,6 @@ function EditTask(propTask: Task) {
 
     if (response.ok) {
       toast.success("Task updated successfully!");
-      setEditTask({ active: false, task: "" })
     } else {
       toast.error("An error occurred while updating the task.");
     }

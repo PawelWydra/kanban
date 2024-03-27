@@ -3,8 +3,8 @@
 import Column from "@/components/Column";
 import { useEffect } from "react";
 import { useHomeContext } from "@/context/HomeContext";
-import { IBoard } from "@/types/index";
 import EmptyBoard from "@/components/EmptyBoard";
+import { IBoard } from "@/types";
 
 type Props = {
   boards: IBoard[];
@@ -17,7 +17,7 @@ const Board = ({ boards }: Props) => {
       setBoards(boards);
       setBoardSelectedId(boards[0].id);
     }
-  }, [boards]);
+  }, [boards, setBoards, setBoardSelectedId]);
   let completeBoardSelected = boards.find(
     (board) => board.id === boardSelectedId
   );
