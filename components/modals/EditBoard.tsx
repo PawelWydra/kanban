@@ -3,6 +3,8 @@ import { useState } from "react";
 import DataInput from "./datainputs/DataInput";
 import DeleteInputButton from "./datainputs/DeleteInputButton";
 import { useHomeContext } from "@/context/HomeContext";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function EditBoard() {
   const isVisible: boolean = useEscape();
@@ -67,18 +69,21 @@ function EditBoard() {
     })
       .then((response) => {
         if (response.ok) {
-          alert("Board updated successfully");
+          toast.success("Board updated successfully");
         } else {
           alert("An error occurred while updating the board");
         }
       })
       .catch((error) => {
         console.error("Error:", error);
+        toast.error("An error occurred while updating the board");
       });
   };
 
   return (
-    isVisible && (
+    <>
+      <ToastContainer />
+      isVisible && (
       <div className="absolute h-screen w-screen bg-gray-900/60 flex justify-center items-center z-20">
         <div className="bg-white w-[30rem] flex flex-col gap-4 p-8 rounded-2xl">
           <h1 className="heading-lg">Edit Board</h1>
@@ -119,7 +124,8 @@ function EditBoard() {
           </button>
         </div>
       </div>
-    )
+      )
+    </>
   );
 }
 
