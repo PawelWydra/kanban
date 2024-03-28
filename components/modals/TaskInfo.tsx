@@ -37,7 +37,6 @@ const TaskInfo = ({ id }: { id: string }) => {
   );
 
   const toggleSubtask = (index: number) => {
-    console.log(index);
     setTask((prevState) => {
       // Create a new array of subtasks with the updated subtask
       const newSubtasks = prevState!.subtasks.map((st, i) => {
@@ -53,6 +52,21 @@ const TaskInfo = ({ id }: { id: string }) => {
       // Return a new task object with the updated subtasks
       return { ...prevState!, subtasks: newSubtasks };
     });
+    updateSubtask();
+  };
+
+  const updateSubtask = async () => {
+    const response = await fetch("/api/task", {
+      method: "PUT",
+      body: JSON.stringify(task),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
   };
 
   return (
