@@ -36,6 +36,25 @@ const TaskInfo = ({ id }: { id: string }) => {
     (subtask: Subtask) => subtask.isCompleted === true
   );
 
+  const toggleSubtask = (index: number) => {
+    console.log(index);
+    setTask((prevState) => {
+      // Create a new array of subtasks with the updated subtask
+      const newSubtasks = prevState!.subtasks.map((st, i) => {
+        if (i === index) {
+          // If this is the subtask that was clicked, toggle its isCompleted property
+          return { ...st, isCompleted: !st.isCompleted };
+        } else {
+          // Otherwise, return the subtask unchanged
+          return st;
+        }
+      });
+
+      // Return a new task object with the updated subtasks
+      return { ...prevState!, subtasks: newSubtasks };
+    });
+  };
+
   return (
     <div className="absolute top-0 left-0 z-20 h-screen w-screen bg-gray-900/60 flex justify-center items-center">
       <div className="relative bg-white w-[30rem] flex flex-col gap-4 p-8 rounded-2xl">
@@ -84,6 +103,10 @@ const TaskInfo = ({ id }: { id: string }) => {
               key={index}
               title={subtask.title}
               isCompleted={subtask.isCompleted}
+              updateState={() => {
+                console.log("update state");
+                toggleSubtask(index);
+              }}
             />
           ))}
         </div>

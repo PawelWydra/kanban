@@ -2,12 +2,22 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import { Subtask } from "@prisma/client";
 
-const SubtaskCheck = ({ isCompleted, title }: Subtask) => {
+type SubtaskCheckProps = {
+  isCompleted: boolean;
+  title: string;
+  updateState: () => void;
+};
+
+const SubtaskCheck = ({
+  isCompleted,
+  title,
+  updateState,
+}: SubtaskCheckProps) => {
   const [isCheck, setIsCheck] = useState(isCompleted);
 
   const handleCheckboxClick = () => {
     setIsCheck((prevState) => !prevState);
-    console.log(isCheck);
+    updateState();
   };
   return (
     <div className="flex items-center gap-4 h-12 px-4 bg-gray-light hover:bg-purple-hover rounded-lg">
