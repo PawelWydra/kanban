@@ -20,7 +20,6 @@ const TaskInfo = ({ id }: { id: string }) => {
   const [task, setTask] = useState<Task>();
   useEffect(() => {
     const getTask = async () => {
-      console.log(id);
       const taskData = await fetch(`/api/task/${id}`);
       const fetchedTask: Task = await taskData.json();
       setTask(fetchedTask);
@@ -48,22 +47,24 @@ const TaskInfo = ({ id }: { id: string }) => {
           return st;
         }
       });
-
+  
       // Return a new task object with the updated subtasks
-      return { ...prevState!, subtasks: newSubtasks };
+      const updatedTask = { ...prevState!, subtasks: newSubtasks };
+      updateSubtask(updatedTask);
+      return updatedTask;
     });
-    updateSubtask();
   };
-
-  const updateSubtask = async () => {
+  
+  const updateSubtask = async (updatedTask: Task) => {
+    console.log(updatedTask);
     const response = await fetch("/api/task", {
       method: "PUT",
-      body: JSON.stringify(task),
+      body: JSON.stringify(updatedTask),
       headers: {
         "Content-Type": "application/json",
       },
     });
-
+  
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -118,7 +119,6 @@ const TaskInfo = ({ id }: { id: string }) => {
               title={subtask.title}
               isCompleted={subtask.isCompleted}
               updateState={() => {
-                console.log("update state");
                 toggleSubtask(index);
               }}
             />
