@@ -10,8 +10,13 @@ import {
 import SubtaskCheck from "@/components/modals/SubtaskCheck";
 import { Subtask, Task } from "@prisma/client";
 import { useModalContext } from "@/context/ModalContext";
+import { useHomeContext } from "@/context/HomeContext";
 
 const TaskInfo = ({ id }: { id: string }) => {
+  const { boards, boardSelectedId } = useHomeContext();
+  const currentboard = boards.find((board) => board.id === boardSelectedId);
+  const columns = currentboard?.columns;
+  
   const handleImageClick = () => {
     setIsDropdownVisible((prevState) => !prevState);
   };
@@ -47,14 +52,14 @@ const TaskInfo = ({ id }: { id: string }) => {
           return st;
         }
       });
-  
+
       // Return a new task object with the updated subtasks
       const updatedTask = { ...prevState!, subtasks: newSubtasks };
       updateSubtask(updatedTask);
       return updatedTask;
     });
   };
-  
+
   const updateSubtask = async (updatedTask: Task) => {
     console.log(updatedTask);
     const response = await fetch("/api/task", {
@@ -64,7 +69,7 @@ const TaskInfo = ({ id }: { id: string }) => {
         "Content-Type": "application/json",
       },
     });
-  
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -126,14 +131,24 @@ const TaskInfo = ({ id }: { id: string }) => {
         </div>
         <div className="flex flex-col gap-1 mb-20">
           <p className="text-body-md text-gray-medium">Current Status</p>
-          <Select>
+          <Select
+            onValueChange={(value) => {
+              setTask({
+                ...task,
+                columnId: value,
+                status: columns?.find((column) => column.id === value)?.name!,
+              });
+            }}
+          >
             <SelectTrigger className="w-full">
               <SelectValue placeholder={task.status} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="light">To do</SelectItem>
-              <SelectItem value="dark">Doing</SelectItem>
-              <SelectItem value="system">Done</SelectItem>
+              {columns?.map((column) => (
+                <SelectItem key={column.id} value={column.id}>
+                  {column.name}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
