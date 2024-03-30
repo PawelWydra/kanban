@@ -3,6 +3,7 @@ import SideBar from "@/components/Sidebar";
 import Logo from "@/components/Logo";
 import prisma from "@/lib/prisma";
 import ModalContainer from "@/components/ModalContainer";
+import { IBoard } from "@/types"; 
 
 export const getBoards = async () => {
   const boards = await prisma.board.findMany({
@@ -17,8 +18,9 @@ export const getBoards = async () => {
   return boards;
 };
 
+
 export default async function Home() {
-  const boards = await getBoards();
+  const boards: IBoard[] = await getBoards();
   return (
     <>
       <ModalContainer />
