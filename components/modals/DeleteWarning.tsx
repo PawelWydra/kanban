@@ -1,6 +1,6 @@
 import { useHomeContext } from "@/context/HomeContext";
 import { useModalContext } from "@/context/ModalContext";
-import { Type } from "@/types";
+import { IBoard, Type } from "@/types";
 
 type DeleteBoardProps = {
   type: Type | string;
@@ -10,16 +10,15 @@ type DeleteBoardProps = {
 
 function DeleteWarning({ type, title, id }: DeleteBoardProps) {
   let paragraph: string;
+  let newBoards: IBoard[];
 
-  const { setDeleteWarning } = useModalContext();
+  const { setDeleteWarning, setTaskInfo } = useModalContext();
   const { boards, setBoards, setBoardSelectedId } = useHomeContext();
 
   if (type === Type.Task) {
     paragraph = `Are you sure you want to delete the ‘${title}’ task and its subtasks? This action cannot be reversed.`;
   } else if (type === Type.Board) {
     paragraph = `Are you sure you want to delete the ‘${title}’ board? This action will remove all columns and tasks and cannot be reversed.`;
-  } else if (type === Type.Column) {
-    paragraph = `Are you sure you want to delete the ‘${title}’? This action cannot be reversed.`;
   } else {
     paragraph = "No type provided.";
   }
@@ -30,11 +29,21 @@ function DeleteWarning({ type, title, id }: DeleteBoardProps) {
       body: JSON.stringify({ id }),
     });
     if (type === Type.Board) {
-      const newBoards = boards.filter((board) => board.id !== id);
-      setBoards(newBoards);
+      newBoards = boards.filter((board) => board.id !== id);
       setBoardSelectedId(boards[0].id);
-      setDeleteWarning({ type: "", title: "", id: "", active: false });
     }
+    if (type === Type.Task) {
+      newBoards = boards.map((board) => {
+        const newColumns = board.columns.map((column) => {
+          const newTasks = column.tasks?.filter((task) => task.id !== id);
+          return { ...column, tasks: newTasks };
+        });
+        return { ...board, columns: newColumns };
+      });
+      setTaskInfo({ id: "", active: false });
+    }
+    setBoards(newBoards);
+    setDeleteWarning({ type: "", title: "", id: "", active: false });
   };
 
   const closeModal = () => {

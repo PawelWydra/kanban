@@ -2,7 +2,6 @@ import { Board, Task } from "@prisma/client";
 
 export enum Type {
   Board = "board",
-  Column = "column",
   Task = "task",
 }
 
