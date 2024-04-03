@@ -1,4 +1,3 @@
-import useEscape from "../helpers/useEscapeFunction";
 import { useState } from "react";
 import DataInput from "./datainputs/DataInput";
 import DeleteInputButton from "./datainputs/DeleteInputButton";
@@ -7,7 +6,6 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function EditBoard() {
-  const isVisible: boolean = useEscape();
   const { boardSelectedId, boards } = useHomeContext();
   let completeBoardSelected = boards.find(
     (board) => board.id === boardSelectedId
@@ -83,7 +81,6 @@ function EditBoard() {
   return (
     <>
       <ToastContainer />
-      isVisible && (
       <div className="absolute h-screen w-screen bg-gray-900/60 flex justify-center items-center z-20">
         <div className="bg-white w-[30rem] flex flex-col gap-4 p-8 rounded-2xl">
           <h1 className="heading-lg">Edit Board</h1>
@@ -124,7 +121,6 @@ function EditBoard() {
           </button>
         </div>
       </div>
-      )
     </>
   );
 }
