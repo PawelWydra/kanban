@@ -25,13 +25,20 @@ const Logo = () => {
     });
     setIsDropdownVisible(false);
   };
+
+  const handleEdit = () => {
+    {
+      setEditBoard(true);
+      setIsDropdownVisible(false);
+    }
+  };
   return (
     <div className="flex w-full h-24 divide-x-4">
       <div className="flex items-center px-6 w-2/12 min-w-[20rem]">
         {isDropdownVisible && (
           <div className="absolute right-16 top-24 bg-white p-2 flex flex-col text-body-md rounded-xl">
             <button
-              onClick={() => setEditBoard(true)}
+              onClick={handleEdit}
               className="text-gray-medium h-12 w-40 p-2 text-left"
             >
               Edit Board
