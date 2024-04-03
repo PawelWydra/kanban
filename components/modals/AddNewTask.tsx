@@ -5,18 +5,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import useEscape from "../helpers/useEscapeFunction";
 import { useState, ChangeEvent } from "react";
 import DataInput from "./datainputs/DataInput";
 import DeleteInputButton from "./datainputs/DeleteInputButton";
-import { ITask, Subtask } from "@/types";
+import { IBoard, ITask, Subtask } from "@/types";
 import { ToastContainer, toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import { useHomeContext } from "@/context/HomeContext";
+import { useModalContext } from "@/context/ModalContext";
 
 function AddNewTask() {
-  const isVisible: boolean = useEscape();
-  const { boards, boardSelectedId } = useHomeContext();
+  const { setAddNewTask } = useModalContext();
+  const { boards, boardSelectedId, setBoards } = useHomeContext();
   const [task, setTask] = useState<ITask>({
     title: "",
     description: "",
@@ -28,7 +28,7 @@ function AddNewTask() {
 
   const currentboard = boards.find((board) => board.id === boardSelectedId);
   const columns = currentboard?.columns;
-  
+
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     field: string
@@ -71,87 +71,102 @@ function AddNewTask() {
         id: uuidv4(),
         columnId: "",
       });
+      const newBoards = boards.map((board) => {
+        if (board.id === boardSelectedId) {
+          const newColumns = board.columns.map((column) => {
+            if (column.id === task.columnId) {
+              return {
+                ...column,
+                tasks: [...(column.tasks || []), task],
+              };
+            }
+            return column;
+          });
+          return { ...board, columns: newColumns };
+        }
+        return board;
+      });
+      setBoards(newBoards as IBoard[]);
+      setAddNewTask(false);
     } else {
       toast.error("Failed to create task");
     }
   };
 
   return (
-    isVisible && (
-      <div className="absolute h-screen w-screen bg-gray-900/60 flex justify-center items-center z-20">
-        <ToastContainer />
-        <div className="bg-white w-[30rem] flex flex-col gap-4 p-8 rounded-2xl">
-          <h1 className="heading-lg">Add New Task</h1>
-          <div className="flex flex-col mt-2">
-            <label className="text-body-md text-gray-medium">Title</label>
-            <input
-              className="ring-2 p-2 ring-gray-light hover:ring-purple rounded"
-              type="text"
-              placeholder="e.g. Take coffee break"
-              value={task.title}
-              onChange={(e) => handleInputChange(e, "title")}
-            />
-          </div>
+    <div className="absolute h-screen w-screen bg-gray-900/60 flex justify-center items-center z-20">
+      <ToastContainer />
+      <div className="bg-white w-[30rem] flex flex-col gap-4 p-8 rounded-2xl">
+        <h1 className="heading-lg">Add New Task</h1>
+        <div className="flex flex-col mt-2">
+          <label className="text-body-md text-gray-medium">Title</label>
+          <input
+            className="ring-2 p-2 ring-gray-light hover:ring-purple rounded"
+            type="text"
+            placeholder="e.g. Take coffee break"
+            value={task.title}
+            onChange={(e) => handleInputChange(e, "title")}
+          />
+        </div>
 
-          <div className="w-full rounded-xl py-2 flex flex-col">
-            <label className="text-body-md text-gray-medium">Description</label>
-            <textarea
-              rows={3}
-              className="w-full p-2 ring-2 ring-gray-light hover:ring-purple rounded resize-none"
-              value={task.description}
-              onChange={(e) => handleInputChange(e, "description")}
-            />
-          </div>
-          <div className="flex flex-col gap-4">
-            <h2 className="text-body-md text-gray-medium">Subtask</h2>
-            {task.subtasks!.map((subtask, index) => (
-              <div className="flex items-center gap-4" key={index}>
-                <DataInput
-                  value={subtask.title}
-                  onChange={(e) => handleSubtaskChange(index, e)}
-                />
-                <DeleteInputButton onClick={() => handleDeleteSubtask(index)} />
-              </div>
-            ))}
-            <button
-              className="h-10 bg-gray-light hover:bg-gray-100 text-purple text-body-md rounded-3xl"
-              onClick={handleAddSubtask}
-            >
-              + Add New Subtask
-            </button>
-          </div>
-          <div className="flex flex-col gap-1">
-            <p className="text-body-md text-gray-medium">Status</p>
-            <Select
-              onValueChange={(value) => {
-                setTask({
-                  ...task,
-                  columnId: value,
-                  status: columns?.find((column) => column.id === value)?.name!,
-                });
-              }}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {columns?.map((column) => (
-                  <SelectItem key={column.id} value={column.id}>
-                    {column.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+        <div className="w-full rounded-xl py-2 flex flex-col">
+          <label className="text-body-md text-gray-medium">Description</label>
+          <textarea
+            rows={3}
+            className="w-full p-2 ring-2 ring-gray-light hover:ring-purple rounded resize-none"
+            value={task.description}
+            onChange={(e) => handleInputChange(e, "description")}
+          />
+        </div>
+        <div className="flex flex-col gap-4">
+          <h2 className="text-body-md text-gray-medium">Subtask</h2>
+          {task.subtasks!.map((subtask, index) => (
+            <div className="flex items-center gap-4" key={index}>
+              <DataInput
+                value={subtask.title}
+                onChange={(e) => handleSubtaskChange(index, e)}
+              />
+              <DeleteInputButton onClick={() => handleDeleteSubtask(index)} />
+            </div>
+          ))}
           <button
-            className="h-10 bg-purple hover:bg-purple-hover text-white text-body-md rounded-3xl"
-            onClick={handleCreateTask}
+            className="h-10 bg-gray-light hover:bg-gray-100 text-purple text-body-md rounded-3xl"
+            onClick={handleAddSubtask}
           >
-            Create Task
+            + Add New Subtask
           </button>
         </div>
+        <div className="flex flex-col gap-1">
+          <p className="text-body-md text-gray-medium">Status</p>
+          <Select
+            onValueChange={(value) => {
+              setTask({
+                ...task,
+                columnId: value,
+                status: columns?.find((column) => column.id === value)?.name!,
+              });
+            }}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {columns?.map((column) => (
+                <SelectItem key={column.id} value={column.id}>
+                  {column.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <button
+          className="h-10 bg-purple hover:bg-purple-hover text-white text-body-md rounded-3xl"
+          onClick={handleCreateTask}
+        >
+          Create Task
+        </button>
       </div>
-    )
+    </div>
   );
 }
 
