@@ -6,10 +6,12 @@ import { ToastContainer, toast } from "react-toastify";
 import { IBoard } from "@/types";
 import { v4 as uuidv4 } from "uuid";
 import { useHomeContext } from "@/context/HomeContext";
+import { useModalContext } from "@/context/ModalContext";
 
 function AddNewBoard() {
   const isVisible: boolean = useEscape();
-  const { setBoards } = useHomeContext();
+  const { setAddNewBoard } = useModalContext();
+  const { setBoards, setBoardSelectedId } = useHomeContext();
   const [board, setBoard] = useState<IBoard>({
     name: "",
     columns: [],
@@ -49,10 +51,10 @@ function AddNewBoard() {
     });
 
     if (response.ok) {
-      toast.success("Board created successfully!");
       setBoards((prevBoards) => [...prevBoards, board]);
-      console.log(board);
       setBoard({ name: "", columns: [], id: uuidv4() });
+      setBoardSelectedId(board.id);
+      setAddNewBoard(false);
     } else {
       toast.error("Failed to create board");
     }
