@@ -6,7 +6,7 @@ import ModalContainer from "@/components/ModalContainer";
 import { IBoard } from "@/types"; 
 
 export const getBoards = async () => {
-  const boards = await prisma.board.findMany({
+  const fetchedBoards = await prisma.board.findMany({
     include: {
       columns: {
         include: {
@@ -15,7 +15,7 @@ export const getBoards = async () => {
       },
     },
   });
-  return boards;
+  return fetchedBoards;
 };
 
 
@@ -28,7 +28,7 @@ export default async function Home() {
         <Logo />
         <div className="h-[calc(100vh-6rem)] bg-[#E4EBFA] flex">
           <SideBar />
-          <Board boards={boards} />
+          <Board fetchedBoards={boards} />
         </div>
       </main>
     </>

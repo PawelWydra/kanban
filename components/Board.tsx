@@ -7,17 +7,20 @@ import EmptyBoard from "@/components/EmptyBoard";
 import { IBoard } from "@/types";
 
 type Props = {
-  boards: IBoard[];
+  fetchedBoards: IBoard[];
 };
 
-const Board = ({ boards }: Props) => {
-  const { setBoards, setBoardSelectedId, boardSelectedId } = useHomeContext();
+const Board = ({ fetchedBoards }: Props) => {
+  const { setBoards, setBoardSelectedId, boardSelectedId, boards } =
+    useHomeContext();
   useEffect(() => {
-    if (boards[0]) {
-      setBoards(boards);
-      setBoardSelectedId(boards[0].id);
+    if (!boards[0]) {
+      setBoards(fetchedBoards);
     }
-  }, [boards, setBoards, setBoardSelectedId]);
+    if (boards === fetchedBoards) {
+      setBoardSelectedId(boards[0].id);
+    } 
+  });
   let completeBoardSelected = boards.find(
     (board) => board.id === boardSelectedId
   );
