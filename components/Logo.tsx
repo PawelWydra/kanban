@@ -15,6 +15,16 @@ const Logo = () => {
   let completeBoardSelected = boards.find(
     (board) => board.id === boardSelectedId
   );
+
+  const handleDelete = () => {
+    setDeleteWarning({
+      id: boardSelectedId,
+      type: Type.Board,
+      title: completeBoardSelected?.name!,
+      active: true,
+    });
+    setIsDropdownVisible(false);
+  };
   return (
     <div className="flex w-full h-24 divide-x-4">
       <div className="flex items-center px-6 w-2/12 min-w-[20rem]">
@@ -27,14 +37,7 @@ const Logo = () => {
               Edit Board
             </button>
             <button
-              onClick={() =>
-                setDeleteWarning({
-                  id: boardSelectedId,
-                  type: Type.Board,
-                  title: completeBoardSelected?.name!,
-                  active: true,
-                })
-              }
+              onClick={handleDelete}
               className="text-destructive h-12 w-40 p-2 text-left"
             >
               Delete Board
