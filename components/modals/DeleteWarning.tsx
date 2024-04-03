@@ -1,3 +1,4 @@
+import { useHomeContext } from "@/context/HomeContext";
 import { useModalContext } from "@/context/ModalContext";
 import { Type } from "@/types";
 
@@ -11,6 +12,7 @@ function DeleteWarning({ type, title, id }: DeleteBoardProps) {
   let paragraph: string;
 
   const { setDeleteWarning } = useModalContext();
+  const { boards, setBoards, setBoardSelectedId } = useHomeContext();
 
   if (type === Type.Task) {
     paragraph = `Are you sure you want to delete the ‘${title}’ task and its subtasks? This action cannot be reversed.`;
@@ -27,6 +29,12 @@ function DeleteWarning({ type, title, id }: DeleteBoardProps) {
       method: "DELETE",
       body: JSON.stringify({ id }),
     });
+    if (type === Type.Board) {
+      const newBoards = boards.filter((board) => board.id !== id);
+      setBoards(newBoards);
+      setBoardSelectedId(boards[0].id);
+      setDeleteWarning({ type: "", title: "", id: "", active: false });
+    }
   };
 
   const closeModal = () => {

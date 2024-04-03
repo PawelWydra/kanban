@@ -17,7 +17,7 @@ const Board = ({ fetchedBoards }: Props) => {
     if (!boards[0]) {
       setBoards(fetchedBoards);
     }
-    setBoardSelectedId(fetchedBoards[0].id);
+    setBoardSelectedId(boards[0].id);
   }, []);
 
   let completeBoardSelected = boards.find(
