@@ -1,6 +1,5 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
-import { Subtask } from "@prisma/client";
 
 type SubtaskCheckProps = {
   isCompleted: boolean;

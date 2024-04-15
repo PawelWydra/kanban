@@ -16,7 +16,7 @@ const TaskInfo = ({ id }: { id: string }) => {
   const { boards, boardSelectedId } = useHomeContext();
   const currentboard = boards.find((board) => board.id === boardSelectedId);
   const columns = currentboard?.columns;
-  
+
   const handleImageClick = () => {
     setIsDropdownVisible((prevState) => !prevState);
   };
@@ -58,6 +58,7 @@ const TaskInfo = ({ id }: { id: string }) => {
       updateSubtask(updatedTask);
       return updatedTask;
     });
+    
   };
 
   const updateSubtask = async (updatedTask: Task) => {
