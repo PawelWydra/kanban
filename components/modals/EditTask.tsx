@@ -12,11 +12,14 @@ import DataInput from "./datainputs/DataInput";
 import { useState } from "react";
 import { useHomeContext } from "@/context/HomeContext";
 import { ToastContainer, toast } from "react-toastify";
+import { useModalContext } from "@/context/ModalContext";
+import { IBoard } from "@/types";
 
 function EditTask(propTask: Task) {
   const isVisible: boolean = useEscape();
   const [task, setTask] = useState<Task>(propTask);
-  const { boards, boardSelectedId } = useHomeContext();
+  const { boards, boardSelectedId, setBoards } = useHomeContext();
+  const { setEditTask, editTask } = useModalContext();
 
   const currentboard = boards.find((board) => board.id === boardSelectedId);
   const columns = currentboard?.columns;
@@ -50,7 +53,24 @@ function EditTask(propTask: Task) {
     });
 
     if (response.ok) {
-      toast.success("Task updated successfully!");
+      toast.success("Task edited successfully!");
+      setEditTask({ ...editTask, active: false });
+      const newBoards = boards.map((board) => {
+        if (board.id === boardSelectedId) {
+          const newColumns = board.columns.map((column) => {
+            if (column.id === task.columnId) {
+              return {
+                ...column,
+                tasks: [...(column.tasks || []), task as Task],
+              };
+            }
+            return column;
+          });
+          return { ...board, columns: newColumns };
+        }
+        return board;
+      });
+      setBoards(newBoards as IBoard[]);
     } else {
       toast.error("An error occurred while updating the task.");
     }
