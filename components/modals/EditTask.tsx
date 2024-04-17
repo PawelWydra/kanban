@@ -19,7 +19,7 @@ function EditTask(propTask: Task) {
   const isVisible: boolean = useEscape();
   const [task, setTask] = useState<Task>(propTask);
   const { boards, boardSelectedId, setBoards } = useHomeContext();
-  const { setEditTask, editTask } = useModalContext();
+  const { setEditTask, setTaskInfo } = useModalContext();
 
   const currentboard = boards.find((board) => board.id === boardSelectedId);
   const columns = currentboard?.columns;
@@ -54,16 +54,20 @@ function EditTask(propTask: Task) {
 
     if (response.ok) {
       toast.success("Task edited successfully!");
-      setEditTask({ ...editTask, active: false });
+      setEditTask((prev) => ({ ...prev, active: false }));
+      setTaskInfo((prev) => ({ ...prev, active: false }));
       const newBoards = boards.map((board) => {
         if (board.id === boardSelectedId) {
           const newColumns = board.columns.map((column) => {
             if (column.id === task.columnId) {
-              // Add the task to the new column
-              return {
-                ...column,
-                tasks: [...(column.tasks || []), task as Task],
-              };
+              // Check if the task already exists in the new column
+              if (!column.tasks!.some((t) => t.id === task.id)) {
+                // Add the task to the new column
+                return {
+                  ...column,
+                  tasks: [...(column.tasks || []), task as Task],
+                };
+              }
             } else if (column.tasks!.some((t) => t.id === task.id)) {
               // Remove the task from the old column
               return {
