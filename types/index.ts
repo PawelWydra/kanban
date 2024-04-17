@@ -10,14 +10,17 @@ export type Subtask = {
   isCompleted: boolean;
 };
 
-export type ITask = {
+export interface ITask {
   id: string;
   title: string;
   description: string;
   status: string;
-  columnId?: string;
-  subtasks?: Subtask[];
-};
+  columnId: string | null;
+  subtasks: {
+    title: string;
+    isCompleted: boolean;
+  }[];
+}
 
 export type IColumn = {
   id: string;
