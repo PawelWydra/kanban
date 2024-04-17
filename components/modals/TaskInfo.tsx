@@ -11,9 +11,10 @@ import SubtaskCheck from "@/components/modals/SubtaskCheck";
 import { Subtask, Task } from "@prisma/client";
 import { useModalContext } from "@/context/ModalContext";
 import { useHomeContext } from "@/context/HomeContext";
+import { IBoard } from "@/types";
 
 const TaskInfo = ({ id }: { id: string }) => {
-  const { boards, boardSelectedId } = useHomeContext();
+  const { setBoards, boards, boardSelectedId } = useHomeContext();
   const currentboard = boards.find((board) => board.id === boardSelectedId);
   const columns = currentboard?.columns;
 
@@ -58,7 +59,6 @@ const TaskInfo = ({ id }: { id: string }) => {
       updateSubtask(updatedTask);
       return updatedTask;
     });
-    
   };
 
   const updateSubtask = async (updatedTask: Task) => {
@@ -74,6 +74,30 @@ const TaskInfo = ({ id }: { id: string }) => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    // Create newBoards
+    const newBoards = boards.map((board) => {
+      if (board.id === boardSelectedId) {
+        return {
+          ...board,
+          columns: board.columns.map((column) => {
+            if (column.id === updatedTask.columnId) {
+              return {
+                ...column,
+                tasks: column.tasks!.map((task) =>
+                  task.id === updatedTask.id ? updatedTask : task
+                ),
+              };
+            }
+            return column;
+          }),
+        };
+      }
+      return board;
+    });
+
+    // Update the boards state
+    setBoards(newBoards as IBoard[]);
   };
 
   return (
