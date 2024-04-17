@@ -1,4 +1,4 @@
-import { Board, Task } from "@prisma/client";
+import { Task } from "@prisma/client";
 
 export enum Type {
   Board = "board",

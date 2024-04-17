@@ -71,6 +71,12 @@ export async function POST(request: Request) {
         })),
       },
     },
+    include: {
+      columns: true,
+    },
   });
-  return NextResponse.json("Board added successufully", { status: 201 });
+  return NextResponse.json(
+    { message: "Board added successfully", board },
+    { status: 201 }
+  );
 }

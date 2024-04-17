@@ -84,6 +84,7 @@ function AddNewTask() {
     } else {
       // Handle error
       toast.error("An error occurred while creating the task.");
+      console.log(response)
     }
   };
 
