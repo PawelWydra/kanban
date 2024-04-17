@@ -67,6 +67,9 @@ function EditTask(propTask: Task) {
               className="ring-2 p-2 ring-gray-light rounded"
               type="text"
               value={task.title}
+              onChange={(e) => {
+                setTask({ ...task, title: e.target.value });
+              }}
             />
           </div>
 
