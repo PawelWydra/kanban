@@ -1,4 +1,3 @@
-import useEscape from "../helpers/useEscapeFunction";
 import { useState, ChangeEvent } from "react";
 import DataInput from "./datainputs/DataInput";
 import DeleteInputButton from "./datainputs/DeleteInputButton";

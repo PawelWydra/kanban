@@ -72,7 +72,11 @@ export async function POST(request: Request) {
       },
     },
     include: {
-      columns: true,
+      columns: {
+        include: {
+          tasks: true,
+        },
+      },
     },
   });
   return NextResponse.json(
