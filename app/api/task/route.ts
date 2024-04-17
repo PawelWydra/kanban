@@ -14,7 +14,7 @@ export async function DELETE(request: Request) {
 
 export async function POST(request: Request) {
   const body = await request.json();
-  await prisma.task.create({
+  const newTask = await prisma.task.create({
     data: {
       title: body.title,
       description: body.description,
@@ -23,7 +23,10 @@ export async function POST(request: Request) {
       columnId: body.columnId,
     },
   });
-  return NextResponse.json("Task created successfully!", { status: 200 });
+  return NextResponse.json(
+    { message: "Task created successfully!", task: newTask },
+    { status: 200 }
+  );
 }
 
 export async function PUT(request: Request) {

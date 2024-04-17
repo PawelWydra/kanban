@@ -5,12 +5,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import DataInput from "./datainputs/DataInput";
 import DeleteInputButton from "./datainputs/DeleteInputButton";
 import { IBoard, ITask, Subtask } from "@/types";
 import { ToastContainer, toast } from "react-toastify";
-import { v4 as uuidv4 } from "uuid";
 import { useHomeContext } from "@/context/HomeContext";
 import { useModalContext } from "@/context/ModalContext";
 
@@ -20,9 +19,9 @@ function AddNewTask() {
   const [task, setTask] = useState<ITask>({
     title: "",
     description: "",
-    subtasks: [],
     status: "",
-    id: uuidv4(),
+    subtasks: [],
+    id: "",
     columnId: "",
   });
 
@@ -63,21 +62,16 @@ function AddNewTask() {
 
     if (response.ok) {
       toast.success("Task created successfully!");
-      setTask({
-        title: "",
-        description: "",
-        subtasks: [],
-        status: "",
-        id: uuidv4(),
-        columnId: "",
-      });
+      const data = await response.json();
+      setTask(data.task as ITask);
+      console.log(data.task, task);
       const newBoards = boards.map((board) => {
         if (board.id === boardSelectedId) {
           const newColumns = board.columns.map((column) => {
             if (column.id === task.columnId) {
               return {
                 ...column,
-                tasks: [...(column.tasks || []), task],
+                tasks: [...(column.tasks || []), data.task],
               };
             }
             return column;
@@ -86,10 +80,10 @@ function AddNewTask() {
         }
         return board;
       });
-      setBoards(newBoards as IBoard[]);
-      setAddNewTask(false);
+      setBoards(newBoards);
     } else {
-      toast.error("Failed to create task");
+      // Handle error
+      toast.error("An error occurred while creating the task.");
     }
   };
 
