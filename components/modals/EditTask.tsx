@@ -59,9 +59,16 @@ function EditTask(propTask: Task) {
         if (board.id === boardSelectedId) {
           const newColumns = board.columns.map((column) => {
             if (column.id === task.columnId) {
+              // Add the task to the new column
               return {
                 ...column,
                 tasks: [...(column.tasks || []), task as Task],
+              };
+            } else if (column.tasks!.some((t) => t.id === task.id)) {
+              // Remove the task from the old column
+              return {
+                ...column,
+                tasks: column.tasks!.filter((t) => t.id !== task.id),
               };
             }
             return column;
