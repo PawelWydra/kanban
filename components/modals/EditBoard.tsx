@@ -4,9 +4,10 @@ import DeleteInputButton from "./datainputs/DeleteInputButton";
 import { useHomeContext } from "@/context/HomeContext";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { IBoard } from "@/types";
 
 function EditBoard() {
-  const { boardSelectedId, boards } = useHomeContext();
+  const { boardSelectedId, boards, setBoards } = useHomeContext();
   let completeBoardSelected = boards.find(
     (board) => board.id === boardSelectedId
   );
@@ -67,6 +68,19 @@ function EditBoard() {
     })
       .then((response) => {
         if (response.ok) {
+          const newBoards = boards.map((board) => {
+            if (board.id === currentBoard!.id) {
+              console.log("Matching board found:", board);
+              console.log("Complete board selected:", completeBoardSelected);
+              return {
+                ...board,
+                columns: currentBoard!.columns,
+              };
+            }
+            return board;
+          });
+          console.log(newBoards);
+          setBoards(newBoards as IBoard[]);
           toast.success("Board updated successfully");
         } else {
           alert("An error occurred while updating the board");
