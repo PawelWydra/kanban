@@ -6,7 +6,6 @@ import { useHomeContext } from "../context/HomeContext";
 
 const NightModeToggle = () => {
   const { setShowSidebar, darkMode, setDarkMode } = useHomeContext();
-  console.log(darkMode);
   return (
     <div className="relative">
       <div className="p-4 flex flex-col justify-center items-center gap-6 mb-6">
