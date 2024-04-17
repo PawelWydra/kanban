@@ -67,6 +67,14 @@ function EditTask(propTask: Task) {
                   ...column,
                   tasks: [...(column.tasks || []), task as Task],
                 };
+              } else {
+                // Update the task in the new column
+                return {
+                  ...column,
+                  tasks: column.tasks!.map((t) =>
+                    t.id === task.id ? task : t
+                  ),
+                };
               }
             } else if (column.tasks!.some((t) => t.id === task.id)) {
               // Remove the task from the old column
