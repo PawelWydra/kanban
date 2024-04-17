@@ -68,23 +68,20 @@ function EditBoard() {
     })
       .then((response) => {
         if (response.ok) {
-          const newBoards = boards.map((board) => {
-            if (board.id === currentBoard!.id) {
-              console.log("Matching board found:", board);
-              console.log("Complete board selected:", completeBoardSelected);
-              return {
-                ...board,
-                columns: currentBoard!.columns,
-              };
-            }
-            return board;
-          });
-          console.log(newBoards);
-          setBoards(newBoards as IBoard[]);
-          toast.success("Board updated successfully");
+          return response.json();
         } else {
-          alert("An error occurred while updating the board");
+          throw new Error("An error occurred while updating the board");
         }
+      })
+      .then((updatedBoard) => {
+        const newBoards = boards.map((board) => {
+          if (board.id === updatedBoard.id) {
+            return updatedBoard;
+          }
+          return board;
+        });
+        setBoards(newBoards as IBoard[]);
+        toast.success("Board updated successfully");
       })
       .catch((error) => {
         console.error("Error:", error);

@@ -56,9 +56,21 @@ export async function PUT(request: Request) {
       },
     },
   });
-  return NextResponse.json("Board updated successfully!", { status: 200 });
-}
 
+  // Fetch the updated board with its columns
+  const updatedBoard = await prisma.board.findUnique({
+    where: { id: id },
+    include: {
+      columns: {
+        include: {
+          tasks: true,
+        },
+      },
+    },
+  });
+
+  return NextResponse.json(updatedBoard, { status: 200 });
+}
 export async function POST(request: Request) {
   const body = await request.json();
   const { name, columns } = body;
