@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useHomeContext } from "@/context/HomeContext";
 import EmptyBoard from "@/components/EmptyBoard";
 import { IBoard } from "@/types";
+import NewColumn from "./NewColumn";
 
 type Props = {
   fetchedBoards: IBoard[];
@@ -35,6 +36,7 @@ const Board = ({ fetchedBoards }: Props) => {
               tasks={column.tasks}
             ></Column>
           ))}
+          <NewColumn />
         </div>
       ) : (
         <EmptyBoard />
