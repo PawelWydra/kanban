@@ -28,7 +28,7 @@ const Board = ({ fetchedBoards }: Props) => {
   return (
     <>
       {completeBoardSelected && completeBoardSelected.columns.length > 0 ? (
-        <div className="w-full h-full flex gap-10 p-6">
+        <div className="w-full h-full flex gap-10 p-6 overflow-auto *:min-w-[17.5rem]">
           {completeBoardSelected.columns.map((column) => (
             <Column
               name={column.name}
