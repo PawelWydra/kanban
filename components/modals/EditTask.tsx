@@ -1,4 +1,3 @@
-import useEscape from "../helpers/useEscapeFunction";
 import {
   Select,
   SelectContent,
@@ -16,7 +15,6 @@ import { useModalContext } from "@/context/ModalContext";
 import { IBoard } from "@/types";
 
 function EditTask(propTask: Task) {
-  const isVisible: boolean = useEscape();
   const [task, setTask] = useState<Task>(propTask);
   const { boards, boardSelectedId, setBoards } = useHomeContext();
   const { setEditTask, setTaskInfo } = useModalContext();
@@ -96,87 +94,83 @@ function EditTask(propTask: Task) {
   };
 
   return (
-    isVisible && (
-      <div className="absolute h-screen w-screen bg-gray-900/60 flex justify-center items-center z-30">
-        <ToastContainer />
-        <div className="bg-white w-[30rem] flex flex-col gap-4 p-8 rounded-2xl">
-          <h1 className="heading-lg">Edit Task</h1>
-          <div className="flex flex-col mt-2">
-            <input
-              className="ring-2 p-2 ring-gray-light rounded"
-              type="text"
-              value={task.title}
-              onChange={(e) => {
-                setTask({ ...task, title: e.target.value });
-              }}
-            />
-          </div>
+    <div className="absolute h-screen w-screen bg-gray-900/60 flex justify-center items-center z-30">
+      <ToastContainer />
+      <div className="bg-white w-[30rem] flex flex-col gap-4 p-8 rounded-2xl">
+        <h1 className="heading-lg">Edit Task</h1>
+        <div className="flex flex-col mt-2">
+          <input
+            className="ring-2 p-2 ring-gray-light rounded"
+            type="text"
+            value={task.title}
+            onChange={(e) => {
+              setTask({ ...task, title: e.target.value });
+            }}
+          />
+        </div>
 
-          <div className="w-full rounded-xl py-2 flex flex-col">
-            <label className="text-body-md text-gray-medium">Description</label>
-            <textarea
-              rows={3}
-              className="w-full p-2 ring-2 ring-gray-light rounded resize-none"
-              value={task.description}
-              onChange={(e) => {
-                setTask({ ...task, description: e.target.value });
-              }}
-            />
-          </div>
-          <div className="flex flex-col gap-4">
-            <h2 className="text-body-md text-gray-medium">Subtask</h2>
-            <div className="flex flex-col items-center gap-2">
-              {task.subtasks!.map((subtask, index) => (
-                <div className="flex items-center gap-4 w-full" key={index}>
-                  <DataInput
-                    value={subtask.title}
-                    onChange={(e) => handleSubtaskChange(index, e)}
-                  />
-                  <DeleteInputButton
-                    onClick={() => handleDeleteSubtask(index)}
-                  />
-                </div>
-              ))}
-            </div>
-            <button
-              onClick={handleAddSubtask}
-              className="h-10 bg-gray-light hover:bg-gray-100 text-purple text-body-md rounded-3xl"
-            >
-              + Add New Subtask
-            </button>
-          </div>
-          <div className="flex flex-col gap-1">
-            <p className="text-body-md text-gray-medium">Status</p>
-            <Select
-              onValueChange={(value) => {
-                setTask({
-                  ...task,
-                  columnId: value,
-                  status: columns?.find((column) => column.id === value)?.name!,
-                });
-              }}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder={task.status} />
-              </SelectTrigger>
-              <SelectContent>
-                {columns?.map((column) => (
-                  <SelectItem key={column.id} value={column.id}>
-                    {column.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+        <div className="w-full rounded-xl py-2 flex flex-col">
+          <label className="text-body-md text-gray-medium">Description</label>
+          <textarea
+            rows={3}
+            className="w-full p-2 ring-2 ring-gray-light rounded resize-none"
+            value={task.description}
+            onChange={(e) => {
+              setTask({ ...task, description: e.target.value });
+            }}
+          />
+        </div>
+        <div className="flex flex-col gap-4">
+          <h2 className="text-body-md text-gray-medium">Subtask</h2>
+          <div className="flex flex-col items-center gap-2">
+            {task.subtasks!.map((subtask, index) => (
+              <div className="flex items-center gap-4 w-full" key={index}>
+                <DataInput
+                  value={subtask.title}
+                  onChange={(e) => handleSubtaskChange(index, e)}
+                />
+                <DeleteInputButton onClick={() => handleDeleteSubtask(index)} />
+              </div>
+            ))}
           </div>
           <button
-            onClick={updateTask}
-            className="h-10 bg-purple hover:bg-purple-hover text-white text-body-md rounded-3xl"
+            onClick={handleAddSubtask}
+            className="h-10 bg-gray-light hover:bg-gray-100 text-purple text-body-md rounded-3xl"
           >
-            Edit Task
+            + Add New Subtask
           </button>
         </div>
+        <div className="flex flex-col gap-1">
+          <p className="text-body-md text-gray-medium">Status</p>
+          <Select
+            onValueChange={(value) => {
+              setTask({
+                ...task,
+                columnId: value,
+                status: columns?.find((column) => column.id === value)?.name!,
+              });
+            }}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder={task.status} />
+            </SelectTrigger>
+            <SelectContent>
+              {columns?.map((column) => (
+                <SelectItem key={column.id} value={column.id}>
+                  {column.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <button
+          onClick={updateTask}
+          className="h-10 bg-purple hover:bg-purple-hover text-white text-body-md rounded-3xl"
+        >
+          Edit Task
+        </button>
       </div>
-    )
+    </div>
   );
 }
 

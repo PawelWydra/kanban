@@ -5,9 +5,12 @@ import { useHomeContext } from "@/context/HomeContext";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IBoard } from "@/types";
+import { useModalContext } from "@/context/ModalContext";
 
 function EditBoard() {
   const { boardSelectedId, boards, setBoards } = useHomeContext();
+  const { setEditBoard } = useModalContext();
+
   let completeBoardSelected = boards.find(
     (board) => board.id === boardSelectedId
   );
@@ -82,6 +85,7 @@ function EditBoard() {
         });
         setBoards(newBoards as IBoard[]);
         toast.success("Board updated successfully");
+        setEditBoard(false);
       })
       .catch((error) => {
         console.error("Error:", error);
