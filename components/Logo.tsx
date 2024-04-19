@@ -59,8 +59,17 @@ const Logo = () => {
         <h2 className="heading-xl">{completeBoardSelected?.name}</h2>
         <div className="flex items-center gap-3">
           <button
-            onClick={() => setAddNewTask(true)}
-            className="h-12 w-48 bg-purple hover:bg-purple-hover duration-300 rounded-3xl heading-md text-white p-1"
+            onClick={handleEdit}
+            className={`h-12 w-48 rounded-3xl heading-md p-1 ${
+              !completeBoardSelected?.columns ||
+              completeBoardSelected.columns.length === 0
+                ? "bg-purple-hover text-white cursor-not-allowed"
+                : "bg-purple text-white hover:bg-purple-hover duration-300"
+            }`}
+            disabled={
+              !completeBoardSelected?.columns ||
+              completeBoardSelected.columns.length === 0
+            }
           >
             + Add New Task
           </button>
