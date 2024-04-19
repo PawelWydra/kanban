@@ -27,6 +27,7 @@ function DataInput({ value, onChange, error = false }: DataInputProps) {
         onChange={(event) => onChange(event.target.value)}
         onBlur={handleBlur}
         onFocus={() => setHasFocus(false)}
+        required
       />
       {error && hasFocus && (
         <span className="absolute right-2 top-1/2 transform -translate-y-1/2 text-destructive text-sm">

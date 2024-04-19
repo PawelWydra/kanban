@@ -69,6 +69,7 @@ function AddNewBoard() {
             placeholder="e.g. Web Design"
             value={board.name}
             onChange={handleBoardNameChange}
+            required
           />
         </div>
         <div className="flex flex-col gap-4">
