@@ -59,7 +59,7 @@ const Logo = () => {
         <h2 className="heading-xl">{completeBoardSelected?.name}</h2>
         <div className="flex items-center gap-3">
           <button
-            onClick={handleEdit}
+            onClick={() => setAddNewTask(true)}
             className={`h-12 w-48 rounded-3xl heading-md p-1 ${
               !completeBoardSelected?.columns ||
               completeBoardSelected.columns.length === 0
