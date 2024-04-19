@@ -1,20 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import LogoIcon from "@/assets/logo-dark.svg";
 import { HiOutlineDotsVertical } from "react-icons/hi";
+import { FaPlus } from "react-icons/fa";
 import { useModalContext } from "@/context/ModalContext";
 import { useHomeContext } from "@/context/HomeContext";
 import { Type } from "@/types";
 
 const Logo = () => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const { setAddNewTask, setEditBoard, setDeleteWarning } = useModalContext();
   const { boardSelectedId, boards } = useHomeContext();
   let completeBoardSelected = boards.find(
     (board) => board.id === boardSelectedId
   );
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleDelete = () => {
     setDeleteWarning({
@@ -60,18 +68,19 @@ const Logo = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setAddNewTask(true)}
-            className={`h-12 w-48 rounded-3xl heading-md p-1 ${
-              !completeBoardSelected?.columns ||
-              completeBoardSelected.columns.length === 0
-                ? "bg-purple-hover text-white cursor-not-allowed"
-                : "bg-purple text-white hover:bg-purple-hover duration-300"
-            }`}
+            className={`flex justify-center items-center h-8 md:h-12 w-12
+             md:w-48 rounded-3xl heading-xl md:heading-md ${
+               !completeBoardSelected?.columns ||
+               completeBoardSelected.columns.length === 0
+                 ? "bg-purple-hover text-white cursor-not-allowed"
+                 : "bg-purple text-white hover:bg-purple-hover duration-300"
+             }`}
             disabled={
               !completeBoardSelected?.columns ||
               completeBoardSelected.columns.length === 0
             }
           >
-            + Add New Task
+            {windowWidth <= 768 ? <FaPlus size={14} /> : "+ Add New Task"}
           </button>
           <button onClick={() => setIsDropdownVisible((prev) => !prev)}>
             <HiOutlineDotsVertical size={25} />
