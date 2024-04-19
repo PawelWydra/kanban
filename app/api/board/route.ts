@@ -2,6 +2,19 @@ import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { IColumn } from "@/types";
 
+export async function GET() {
+  const boards = await prisma.board.findMany({
+    include: {
+      columns: {
+        include: {
+          tasks: true,
+        },
+      },
+    },
+  });
+  return NextResponse.json(boards, { status: 200 });
+}
+
 export async function DELETE(request: Request) {
   const body = await request.json();
   const id = body.id;
