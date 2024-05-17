@@ -10,7 +10,7 @@ import { useHomeContext } from "@/context/HomeContext";
 import { Type } from "@/types";
 
 const Logo = () => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(0);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const { setAddNewTask, setEditBoard, setDeleteWarning } = useModalContext();
   const { boardSelectedId, boards } = useHomeContext();
